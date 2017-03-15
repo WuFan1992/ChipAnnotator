@@ -85,6 +85,7 @@ void ImageTagger::leaveEvent(QEvent* evt)
 {
     Q_UNUSED(evt);
     m_current_region.reset();
+    m_mouse_pressed = false;
     update();
 }
 
@@ -92,22 +93,24 @@ void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
     m_current_region = screenToRegion(evt->pos());
+    if(m_mouse_pressed)
+        tagRegion(screenToRegion(evt->pos()));
     update();
 }
 
 void ImageTagger::mousePressEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
-    const auto region = screenToRegion(evt->pos());
-
+    m_mouse_pressed = true;
+    tagRegion(screenToRegion(evt->pos()));
     update();
 }
 
 void ImageTagger::mouseReleaseEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
-    const auto region = screenToRegion(evt->pos());
-    m_result.setPixel(region.x(), region.y(), qRgb(m_current_class, m_current_class, m_current_class));
+    tagRegion(screenToRegion(evt->pos()));
+    m_mouse_pressed = false;
     update();
 }
 
@@ -163,4 +166,9 @@ void ImageTagger::paintCurrentRegion(QPainter& p)
     p.drawRect(increment().x() * m_current_region->x(), increment().y() * m_current_region->y(), increment().x(),
                increment().y());
     p.restore();
+}
+
+void ImageTagger::tagRegion(const Region& region)
+{
+    m_result.setPixel(region.x(), region.y(), qRgb(m_current_class, m_current_class, m_current_class));
 }

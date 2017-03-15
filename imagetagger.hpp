@@ -54,6 +54,7 @@ private:
     QImage m_result;
     bool m_display_grid = true;
     bool m_display_annotations = true;
+    bool m_mouse_pressed = false;
     quint8 m_current_class = 0;
     QPixmap m_pixmap;
     boost::optional<Region> m_current_region;
@@ -73,4 +74,6 @@ private:
     void paintGrid(QPainter& p);
 
     void paintCurrentRegion(QPainter& p);
+
+    void tagRegion(const Region& region);
 };
