@@ -28,4 +28,5 @@ ClassSelector::ClassSelector(QWidget* parent)
     w->setLayout(lay);
     setWidget(w);
     setMinimumWidth(200);
+    setFeatures(QDockWidget::NoDockWidgetFeatures);
 }

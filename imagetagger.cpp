@@ -93,8 +93,7 @@ void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
     m_current_region = screenToRegion(evt->pos());
-    if(m_mouse_pressed)
-        tagRegion(screenToRegion(evt->pos()));
+    if(m_mouse_pressed) tagRegion(screenToRegion(evt->pos()));
     update();
 }
 
@@ -170,5 +169,6 @@ void ImageTagger::paintCurrentRegion(QPainter& p)
 
 void ImageTagger::tagRegion(const Region& region)
 {
-    m_result.setPixel(region.x(), region.y(), qRgb(m_current_class, m_current_class, m_current_class));
+    if(region.x() >= 0 && region.x() < m_result.width() && region.y() >= 0 && region.y() < m_result.height())
+        m_result.setPixel(region.x(), region.y(), qRgb(m_current_class, m_current_class, m_current_class));
 }
