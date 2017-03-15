@@ -62,4 +62,10 @@ private:
     * @pre m_pixmap is valid
     */
     QPointF increment() const;
+
+    void paintAnnotations(QPainter& p);
+
+    void paintGrid(QPainter& p);
+
+    void paintCurrentRegion(QPainter& p);
 };

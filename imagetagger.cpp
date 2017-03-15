@@ -66,38 +66,14 @@ void ImageTagger::paintEvent(QPaintEvent* evt)
     QLabel::paintEvent(evt);
     if(m_pixmap.isNull()) return;
     QPainter p(this);
-    for(int x = 0; x < c_annotation_resolution.width(); x++)
-        for(int y = 0; y < c_annotation_resolution.height(); y++)
-        {
-            const auto value = qGray(m_result.pixel(x, y));
-            if(value == 0) continue;
-            p.save();
-            p.setPen(Qt::NoPen);
-            auto color = Classes::classes()[value].color();
-            color.setAlpha(150);
-            p.setBrush(color);
-            p.drawRect(increment().x() * x, increment().y() * y, increment().x(), increment().y());
-            p.restore();
-        }
+    paintAnnotations(p);
     if(m_current_region)
     {
-        p.save();
-        p.setPen(Qt::NoPen);
-        p.setBrush(QColor(255, 255, 255, 100));
-        p.drawRect(increment().x() * m_current_region->x(), increment().y() * m_current_region->y(), increment().x(),
-                   increment().y());
-        p.restore();
+        paintCurrentRegion(p);
     }
     if(m_display_grid)
     {
-        p.save();
-        p.setPen(Qt::red);
-        p.drawRect(QRect(QPoint(0, 0), pixmap()->size()));
-        for(int x = 0; x < c_annotation_resolution.width(); x++)
-            p.drawLine(increment().x() * (x + 1), 0, increment().x() * (x + 1), pixmap()->size().height());
-        for(int y = 0; y < c_annotation_resolution.height(); y++)
-            p.drawLine(0, increment().y() * (y + 1), pixmap()->size().width(), increment().y() * (y + 1));
-        p.restore();
+        paintGrid(p);
     }
 }
 
@@ -144,4 +120,43 @@ QPointF ImageTagger::increment() const
     const auto x = (double)grid_size.width() / c_annotation_resolution.width();
     const auto y = (double)grid_size.height() / c_annotation_resolution.height();
     return {x, y};
+}
+
+void ImageTagger::paintAnnotations(QPainter& p)
+{
+    for(int x = 0; x < c_annotation_resolution.width(); x++)
+        for(int y = 0; y < c_annotation_resolution.height(); y++)
+        {
+            const auto value = qGray(m_result.pixel(x, y));
+            if(value == 0) continue;
+            p.save();
+            p.setPen(Qt::NoPen);
+            auto color = Classes::classes()[value].color();
+            color.setAlpha(150);
+            p.setBrush(color);
+            p.drawRect(increment().x() * x, increment().y() * y, increment().x(), increment().y());
+            p.restore();
+        }
+}
+
+void ImageTagger::paintGrid(QPainter& p)
+{
+    p.save();
+    p.setPen(Qt::red);
+    p.drawRect(QRect(QPoint(0, 0), pixmap()->size()));
+    for(int x = 0; x < c_annotation_resolution.width(); x++)
+        p.drawLine(increment().x() * (x + 1), 0, increment().x() * (x + 1), pixmap()->size().height());
+    for(int y = 0; y < c_annotation_resolution.height(); y++)
+        p.drawLine(0, increment().y() * (y + 1), pixmap()->size().width(), increment().y() * (y + 1));
+    p.restore();
+}
+
+void ImageTagger::paintCurrentRegion(QPainter& p)
+{
+    p.save();
+    p.setPen(Qt::NoPen);
+    p.setBrush(QColor(255, 255, 255, 100));
+    p.drawRect(increment().x() * m_current_region->x(), increment().y() * m_current_region->y(), increment().x(),
+               increment().y());
+    p.restore();
 }
