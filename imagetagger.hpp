@@ -9,7 +9,6 @@ class ImageTagger : public QLabel
     Q_OBJECT
 
 public:
-
     class Region : private QPoint
     {
     public:
@@ -17,7 +16,6 @@ public:
 
         using QPoint::x;
         using QPoint::y;
-
     };
 
     explicit ImageTagger(QWidget* parent = nullptr);

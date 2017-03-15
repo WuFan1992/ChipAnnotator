@@ -26,5 +26,4 @@ private slots:
     void onSaveClicked();
 
     void onSaveAsClicked();
-
 };

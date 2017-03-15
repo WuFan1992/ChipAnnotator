@@ -9,7 +9,7 @@
 
 #include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
     setupMenuBar();
@@ -36,13 +36,13 @@ void MainWindow::setupMenuBar()
     save_as_action->setShortcut(tr("Ctrl+Shift+S"));
 
     auto* display_menu = menuBar()->addMenu(tr("&Display"));
-    auto* toggle_grid_action = display_menu->addAction(tr("Toggle grid"), [this](){ m_tagger->setGridEnabled(!m_tagger->isGridEnabled());});
+    auto* toggle_grid_action = display_menu->addAction(
+        tr("Toggle grid"), [this]() { m_tagger->setGridEnabled(!m_tagger->isGridEnabled()); });
     toggle_grid_action->setShortcut(tr("Ctrl+G"));
 }
 
 void MainWindow::setupStatusBar()
 {
-
 }
 
 void MainWindow::onOpenClicked()

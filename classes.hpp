@@ -19,4 +19,3 @@ private:
 
     static QList<Classes> s_classes;
 };
-

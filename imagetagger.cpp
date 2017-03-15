@@ -10,13 +10,15 @@
 const QSize ImageTagger::c_image_resolution(3393, 2360);
 const QSize ImageTagger::c_annotation_resolution(26, 18);
 
-ImageTagger::Region::Region(int x, int y): QPoint(x, y)
-{}
+ImageTagger::Region::Region(int x, int y)
+    : QPoint(x, y)
+{
+}
 
-ImageTagger::ImageTagger(QWidget* parent) :
-    QLabel(parent),
-    m_display_grid(true),
-    m_result(c_annotation_resolution, QImage::Format_Grayscale8)
+ImageTagger::ImageTagger(QWidget* parent)
+    : QLabel(parent)
+    , m_display_grid(true)
+    , m_result(c_annotation_resolution, QImage::Format_Grayscale8)
 {
     m_result.fill(0);
     setMouseTracking(true);
@@ -26,8 +28,7 @@ ImageTagger::ImageTagger(QWidget* parent) :
 
 void ImageTagger::display(const QPixmap& pixmap)
 {
-    if(pixmap.size() != c_image_resolution)
-        throw std::runtime_error("Image resolution unsupported");
+    if(pixmap.size() != c_image_resolution) throw std::runtime_error("Image resolution unsupported");
     m_pixmap = pixmap;
     setPixmap(m_pixmap.scaled(size(), Qt::KeepAspectRatio));
 }
@@ -83,7 +84,8 @@ void ImageTagger::paintEvent(QPaintEvent* evt)
         p.save();
         p.setPen(Qt::NoPen);
         p.setBrush(QColor(255, 255, 255, 100));
-        p.drawRect(increment().x() * m_current_region->x(), increment().y() * m_current_region->y(), increment().x(), increment().y());
+        p.drawRect(increment().x() * m_current_region->x(), increment().y() * m_current_region->y(), increment().x(),
+                   increment().y());
         p.restore();
     }
     if(m_display_grid)

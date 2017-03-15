@@ -19,6 +19,8 @@ const QColor& Classes::color() const
     return m_color;
 }
 
-Classes::Classes(const QString& name_, const QColor& color_): m_name(name_), m_color(color_)
+Classes::Classes(const QString& name_, const QColor& color_)
+    : m_name(name_)
+    , m_color(color_)
 {
 }
