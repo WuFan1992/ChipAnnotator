@@ -29,6 +29,10 @@ public:
 
     void setGridEnabled(const bool enabled);
 
+    bool areAnnotationsEnabled() const;
+
+    void setAnnotationsEnabled(const bool enabled);
+
     void setClass(quint8 class_index);
 
     const QImage& result() const;
@@ -47,8 +51,9 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent* evt) override;
 
 private:
-    bool m_display_grid;
     QImage m_result;
+    bool m_display_grid = true;
+    bool m_display_annotations = true;
     quint8 m_current_class = 0;
     QPixmap m_pixmap;
     boost::optional<Region> m_current_region;

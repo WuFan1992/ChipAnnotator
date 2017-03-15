@@ -39,6 +39,9 @@ void MainWindow::setupMenuBar()
     auto* toggle_grid_action = display_menu->addAction(
         tr("Toggle grid"), [this]() { m_tagger->setGridEnabled(!m_tagger->isGridEnabled()); });
     toggle_grid_action->setShortcut(tr("Ctrl+G"));
+    auto* toggle_annotations_action = display_menu->addAction(
+        tr("Toggle annotations"), [this]() { m_tagger->setAnnotationsEnabled(!m_tagger->areAnnotationsEnabled()); });
+    toggle_annotations_action->setShortcut(tr("Ctrl+D"));
 }
 
 void MainWindow::setupStatusBar()

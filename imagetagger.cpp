@@ -17,7 +17,6 @@ ImageTagger::Region::Region(int x, int y)
 
 ImageTagger::ImageTagger(QWidget* parent)
     : QLabel(parent)
-    , m_display_grid(true)
     , m_result(c_annotation_resolution, QImage::Format_Grayscale8)
 {
     m_result.fill(0);
@@ -44,6 +43,17 @@ void ImageTagger::setGridEnabled(const bool enabled)
     update();
 }
 
+bool ImageTagger::areAnnotationsEnabled() const
+{
+    return m_display_annotations;
+}
+
+void ImageTagger::setAnnotationsEnabled(const bool enabled)
+{
+    m_display_annotations = enabled;
+    update();
+}
+
 void ImageTagger::setClass(quint8 class_index)
 {
     m_current_class = class_index;
@@ -66,15 +76,9 @@ void ImageTagger::paintEvent(QPaintEvent* evt)
     QLabel::paintEvent(evt);
     if(m_pixmap.isNull()) return;
     QPainter p(this);
-    paintAnnotations(p);
-    if(m_current_region)
-    {
-        paintCurrentRegion(p);
-    }
-    if(m_display_grid)
-    {
-        paintGrid(p);
-    }
+    if(m_display_annotations) paintAnnotations(p);
+    if(m_current_region) paintCurrentRegion(p);
+    if(m_display_grid) paintGrid(p);
 }
 
 void ImageTagger::leaveEvent(QEvent* evt)
