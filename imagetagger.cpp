@@ -30,6 +30,7 @@ void ImageTagger::display(const QPixmap& pixmap)
     if(pixmap.size() != c_image_resolution) throw std::runtime_error("Image resolution unsupported");
     m_pixmap = pixmap;
     setPixmap(m_pixmap.scaled(size(), Qt::KeepAspectRatio));
+    m_result.fill(0);
 }
 
 bool ImageTagger::isGridEnabled() const
