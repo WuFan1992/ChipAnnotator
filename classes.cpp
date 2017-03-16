@@ -1,8 +1,9 @@
 #include "classes.hpp"
 
 QList<Classes> Classes::s_classes = QList<Classes>() << Classes{QString("RAS"), QColor(0, 0, 0, 0)}
-                                                     << Classes{QString("Bubble"), QColor(255, 0, 0)}
-                                                     << Classes{QString("Coalescence"), QColor(0, 0, 255)};
+                                                     << Classes{QString("Large Coalescence"), QColor(0, 0, 255)}
+                                                     << Classes{QString("Air Bubble"), QColor(255, 0, 0)}
+                                                     << Classes{QString("Smears and Scratches"), QColor(0, 255, 0)};
 
 const QList<Classes>& Classes::classes()
 {
