@@ -54,8 +54,11 @@ void MainWindow::onOpenClicked()
     if(file.isEmpty()) return;
     try
     {
+        auto annotation = file;
+        annotation.chop(4);
+        annotation += "_mask.tif";
         m_current_image_file_path = file;
-        m_tagger->display(file);
+        m_tagger->display(file, annotation);
     }
     catch(const std::runtime_error& ex)
     {
@@ -66,9 +69,7 @@ void MainWindow::onOpenClicked()
 
 void MainWindow::onSaveClicked()
 {
-    qDebug() << "MainWindow::onSaveClicked()";
     if(m_current_image_file_path.isEmpty()) return;
-    qDebug() << m_current_image_file_path;
     auto output_file_path = m_current_image_file_path;
     output_file_path.chop(4);
     output_file_path += "_mask.tif";

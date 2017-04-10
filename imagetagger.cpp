@@ -25,14 +25,17 @@ ImageTagger::ImageTagger(QWidget* parent)
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
 
-void ImageTagger::display(const QPixmap& pixmap)
+void ImageTagger::display(const QPixmap& pixmap, const QString& annotation)
 {
     if(pixmap.size() != c_image_resolution)
         throw std::runtime_error("Image resolution unsupported : " + std::to_string(pixmap.size().width()) + "x"
                                  + std::to_string(pixmap.size().height()));
     m_pixmap = pixmap;
     setPixmap(m_pixmap.scaled(size(), Qt::KeepAspectRatio));
-    m_result.fill(0);
+    if(annotation.isEmpty())
+        m_result.fill(0);
+    else
+        m_result.load(annotation);
 }
 
 bool ImageTagger::isGridEnabled() const

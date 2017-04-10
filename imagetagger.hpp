@@ -23,7 +23,7 @@ public:
     static const QSize c_image_resolution;
     static const QSize c_annotation_resolution;
 
-    void display(const QPixmap& pixmap);
+    void display(const QPixmap& pixmap, const QString& annotation = "");
 
     bool isGridEnabled() const;
 
