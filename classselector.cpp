@@ -4,6 +4,7 @@
 
 #include <QButtonGroup>
 #include <QPushButton>
+#include <QShortcut>
 #include <QVBoxLayout>
 
 ClassSelector::ClassSelector(QWidget* parent)
@@ -11,7 +12,7 @@ ClassSelector::ClassSelector(QWidget* parent)
 {
     auto* w = new QWidget;
     auto* lay = new QVBoxLayout;
-    auto* group = new QButtonGroup(this);
+    m_button_group = new QButtonGroup(this);
     for(int i = 0; i < Classes::classes().size(); i++)
     {
         const auto& c = Classes::classes()[i];
@@ -21,7 +22,7 @@ ClassSelector::ClassSelector(QWidget* parent)
         b->setStyleSheet("margin: 20px; padding: 10px;");
         b->setCheckable(true);
         connect(b, &QPushButton::clicked, [this, i]() { emit classSelected(i); });
-        group->addButton(b);
+        m_button_group->addButton(b);
         lay->addWidget(b);
     }
     lay->addStretch();
@@ -29,4 +30,16 @@ ClassSelector::ClassSelector(QWidget* parent)
     setWidget(w);
     setMinimumWidth(200);
     setFeatures(QDockWidget::NoDockWidgetFeatures);
+
+    setupShortcuts();
+}
+
+void ClassSelector::setupShortcuts()
+{
+    for(int i = 0; i < Classes::classes().size(); i++)
+    {
+        auto* shortcut = new QShortcut(QKeySequence(Qt::Key_F1 + i), this);
+        shortcut->setContext(Qt::ApplicationShortcut);
+        connect(shortcut, &QShortcut::activated, [this, i]() { m_button_group->buttons()[i]->click(); });
+    }
 }

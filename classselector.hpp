@@ -2,6 +2,8 @@
 
 #include <QDockWidget>
 
+class QButtonGroup;
+
 class ClassSelector : public QDockWidget
 {
     Q_OBJECT
@@ -10,4 +12,9 @@ public:
 
 signals:
     void classSelected(quint8 class_index);
+
+private:
+    QButtonGroup* m_button_group;
+
+    void setupShortcuts();
 };
