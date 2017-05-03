@@ -58,7 +58,7 @@ void MainWindow::onOpenClicked()
         annotation.chop(4);
         annotation += "_mask.tif";
         m_current_image_file_path = file;
-        m_tagger->display(file, annotation);
+        m_tagger->display(file, (QFileInfo::exists(annotation) ? annotation : ""));
     }
     catch(const std::runtime_error& ex)
     {
