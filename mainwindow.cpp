@@ -27,21 +27,17 @@ MainWindow::MainWindow(QWidget* parent)
 void MainWindow::setupMenuBar()
 {
     auto* file_menu = menuBar()->addMenu(tr("&Files"));
-    auto* open_action = file_menu->addAction(tr("&Open"), this, &MainWindow::onOpenClicked);
-    open_action->setShortcut(tr("Ctrl+O"));
+    file_menu->addAction(tr("&Open"), this, &MainWindow::onOpenClicked, tr("Ctrl+O"));
     file_menu->addSeparator();
-    auto* save_action = file_menu->addAction(tr("&Save"), this, &MainWindow::onSaveClicked);
-    save_action->setShortcut(tr("Ctrl+S"));
-    auto* save_as_action = file_menu->addAction(tr("&Save As"), this, &MainWindow::onSaveAsClicked);
-    save_as_action->setShortcut(tr("Ctrl+Shift+S"));
+    file_menu->addAction(tr("&Save"), this, &MainWindow::onSaveClicked, tr("Ctrl+S"));
+    file_menu->addAction(tr("&Save As"), this, &MainWindow::onSaveAsClicked, tr("Ctrl+Shift+S"));
 
     auto* display_menu = menuBar()->addMenu(tr("&Display"));
-    auto* toggle_grid_action = display_menu->addAction(
-        tr("Toggle grid"), [this]() { m_tagger->setGridEnabled(!m_tagger->isGridEnabled()); });
-    toggle_grid_action->setShortcut(tr("Ctrl+G"));
-    auto* toggle_annotations_action = display_menu->addAction(
-        tr("Toggle annotations"), [this]() { m_tagger->setAnnotationsEnabled(!m_tagger->areAnnotationsEnabled()); });
-    toggle_annotations_action->setShortcut(tr("Ctrl+D"));
+    display_menu->addAction(tr("Toggle grid"), [this]() { m_tagger->setGridEnabled(!m_tagger->isGridEnabled()); },
+                            tr("Ctrl+G"));
+    display_menu->addAction(tr("Toggle annotations"),
+                            [this]() { m_tagger->setAnnotationsEnabled(!m_tagger->areAnnotationsEnabled()); },
+                            tr("Ctrl+D"));
 }
 
 void MainWindow::setupStatusBar()
