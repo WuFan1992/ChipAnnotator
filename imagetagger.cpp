@@ -5,10 +5,9 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-#include <QDebug>
 
-const QSize ImageTagger::c_image_resolution(3393, 2360);
-const QSize ImageTagger::c_annotation_resolution(26, 18);
+const QSize ImageTagger::c_image_resolution(3264, 2304);
+const QSize ImageTagger::c_annotation_resolution(51, 36);
 
 ImageTagger::Region::Region(int x, int y)
     : QPoint(x, y)
@@ -35,7 +34,10 @@ void ImageTagger::display(const QPixmap& pixmap, const QString& annotation)
     if(annotation.isEmpty())
         m_result.fill(0);
     else
+    {
         m_result.load(annotation);
+        m_result = m_result.copy(QRect(QPoint(0, 0), c_annotation_resolution));
+    }
 }
 
 bool ImageTagger::isGridEnabled() const
