@@ -5,7 +5,6 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-
 const QSize ImageTagger::c_image_resolution(3264, 2304);
 const QSize ImageTagger::c_annotation_resolution(51, 36);
 
