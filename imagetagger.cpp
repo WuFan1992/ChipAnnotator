@@ -1,6 +1,7 @@
 #include "imagetagger.hpp"
 
 #include "classes.hpp"
+#include "utils.hpp"
 
 #include <QMouseEvent>
 #include <QPainter>
@@ -142,13 +143,8 @@ void ImageTagger::paintAnnotations(QPainter& p)
         {
             const auto value = qGray(m_result.pixel(x, y));
             if(value == 0) continue;
-            p.save();
-            p.setPen(Qt::NoPen);
-            auto color = Classes::classes()[value].color();
-            color.setAlpha(150);
-            p.setBrush(color);
-            p.drawRect(increment().x() * x, increment().y() * y, increment().x(), increment().y());
-            p.restore();
+            Utils::drawRectForClass(p, Classes::classes()[value],
+                                    QRect(increment().x() * x, increment().y() * y, increment().x(), increment().y()));
         }
 }
 

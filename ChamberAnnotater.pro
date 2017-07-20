@@ -11,9 +11,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     imagetagger.cpp \
     classselector.cpp \
-    classes.cpp
+    classes.cpp \
+    utils.cpp
 
 HEADERS  += mainwindow.hpp \
     imagetagger.hpp \
     classselector.hpp \
-    classes.hpp
+    classes.hpp \
+    utils.hpp

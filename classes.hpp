@@ -18,4 +18,5 @@ private:
     QColor m_color;
 
     static QList<Classes> s_classes;
+    static const QList<QColor> c_color;
 };

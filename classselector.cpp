@@ -1,12 +1,29 @@
 #include "classselector.hpp"
 
 #include "classes.hpp"
+#include "utils.hpp"
 
 #include <QButtonGroup>
+#include <QPainter>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QShortcut>
 #include <QVBoxLayout>
+
+namespace
+{
+
+    QPixmap createPixmapForClass(const Classes& c)
+    {
+        QPixmap p(QSize(60, 60));
+
+        // QPainter pa(&p);
+        // Utils::drawRectForClass(pa, c, p.rect());
+        p.fill(c.color());
+
+        return p;
+    }
+}
 
 ClassSelector::ClassSelector(QWidget* parent)
     : QDockWidget(parent)
@@ -30,9 +47,7 @@ QWidget* ClassSelector::buildButtonWidget()
     for(int i = 0; i < Classes::classes().size(); i++)
     {
         const auto& c = Classes::classes()[i];
-        QPixmap p(QSize(40, 40));
-        p.fill(c.color());
-        auto* b = new QPushButton(p, c.name());
+        auto* b = new QPushButton(createPixmapForClass(c), c.name());
         b->setStyleSheet("margin: 5px; padding: 10px;");
         b->setCheckable(true);
         connect(b, &QPushButton::clicked, [this, i]() { emit classSelected(i); });
