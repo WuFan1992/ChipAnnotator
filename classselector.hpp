@@ -16,5 +16,7 @@ signals:
 private:
     QButtonGroup* m_button_group;
 
+    QWidget* buildButtonWidget();
+
     void setupShortcuts();
 };

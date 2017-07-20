@@ -4,11 +4,25 @@
 
 #include <QButtonGroup>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QShortcut>
 #include <QVBoxLayout>
 
 ClassSelector::ClassSelector(QWidget* parent)
     : QDockWidget(parent)
+{
+    auto* scroll_area = new QScrollArea;
+    scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll_area->setWidget(buildButtonWidget());
+    setWidget(scroll_area);
+
+    setMinimumWidth(230);
+    setFeatures(QDockWidget::NoDockWidgetFeatures);
+
+    setupShortcuts();
+}
+
+QWidget* ClassSelector::buildButtonWidget()
 {
     auto* w = new QWidget;
     auto* lay = new QVBoxLayout;
@@ -19,7 +33,7 @@ ClassSelector::ClassSelector(QWidget* parent)
         QPixmap p(QSize(40, 40));
         p.fill(c.color());
         auto* b = new QPushButton(p, c.name());
-        b->setStyleSheet("margin: 20px; padding: 10px;");
+        b->setStyleSheet("margin: 5px; padding: 10px;");
         b->setCheckable(true);
         connect(b, &QPushButton::clicked, [this, i]() { emit classSelected(i); });
         m_button_group->addButton(b);
@@ -27,11 +41,7 @@ ClassSelector::ClassSelector(QWidget* parent)
     }
     lay->addStretch();
     w->setLayout(lay);
-    setWidget(w);
-    setMinimumWidth(200);
-    setFeatures(QDockWidget::NoDockWidgetFeatures);
-
-    setupShortcuts();
+    return w;
 }
 
 void ClassSelector::setupShortcuts()
