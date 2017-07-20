@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QStatusBar>
 
 #include <QDebug>
 
@@ -17,6 +18,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     m_tagger = new ImageTagger;
     setCentralWidget(m_tagger);
+    auto* b = statusBar();
+    connect(m_tagger, &ImageTagger::newCurrentClass, [b](QString name) { b->showMessage(name); });
 
     auto* dock = new ClassSelector;
     addDockWidget(Qt::RightDockWidgetArea, dock);

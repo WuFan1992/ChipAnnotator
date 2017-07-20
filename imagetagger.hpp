@@ -37,6 +37,9 @@ public:
 
     const QImage& result() const;
 
+signals:
+    void newCurrentClass(QString name);
+
 protected:
     virtual void resizeEvent(QResizeEvent* evt) override;
 
