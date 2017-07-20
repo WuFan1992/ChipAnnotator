@@ -101,8 +101,11 @@ void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
     m_current_region = screenToRegion(evt->pos());
-    const auto class_id = qRed(m_result.pixel(m_current_region->x(), m_current_region->y()));
-    emit newCurrentClass(Classes::classes()[class_id].name());
+    if(m_result.rect().contains(m_current_region->x(), m_current_region->y()))
+    {
+        const auto class_id = qRed(m_result.pixel(m_current_region->x(), m_current_region->y()));
+        emit newCurrentClass(Classes::classes()[class_id].name());
+    }
     if(m_mouse_pressed) tagRegion(screenToRegion(evt->pos()));
     update();
 }
