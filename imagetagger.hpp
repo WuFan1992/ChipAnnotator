@@ -106,4 +106,6 @@ private:
     quint8 classAtPosition(const Region& pos) const;
 
     bool hasImagesLoaded() const;
+
+    void updateBackgroundImage();
 };

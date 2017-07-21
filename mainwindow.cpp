@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget* parent)
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
     connect(dock, &ClassSelector::classSelected, m_tagger, &ImageTagger::setClass);
+    connect(dock, &ClassSelector::channelSelected, m_tagger, &ImageTagger::setChannel);
     connect(m_tagger, &ImageTagger::selectClass, dock, &ClassSelector::selectClass);
 }
 

@@ -31,7 +31,7 @@ void ImageTagger::display(const ImageStack_t& images, const QString& annotation)
             throw std::runtime_error("Image resolution unsupported : " + std::to_string(pixmap.size().width()) + "x"
                                      + std::to_string(pixmap.size().height()));
     m_images = images;
-    setPixmap(m_images[m_current_channel].scaled(size(), Qt::KeepAspectRatio));
+    updateBackgroundImage();
     if(annotation.isEmpty())
         m_result.fill(0);
     else
@@ -76,6 +76,7 @@ const QImage& ImageTagger::result() const
 void ImageTagger::setChannel(quint8 channel_index)
 {
     m_current_channel = channel_index;
+    updateBackgroundImage();
 }
 
 void ImageTagger::resizeEvent(QResizeEvent* evt)
@@ -219,4 +220,11 @@ quint8 ImageTagger::classAtPosition(const Region& pos) const
 bool ImageTagger::hasImagesLoaded() const
 {
     return m_images.size() == 3 && !m_images.front().isNull();
+}
+
+void ImageTagger::updateBackgroundImage()
+{
+    const auto& img = m_images[m_current_channel];
+    if(!img.isNull()) setPixmap(img.scaled(size(), Qt::KeepAspectRatio));
+    update();
 }
