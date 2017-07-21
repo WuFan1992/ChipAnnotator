@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget* parent)
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
     connect(dock, &ClassSelector::classSelected, m_tagger, &ImageTagger::setClass);
+    connect(m_tagger, &ImageTagger::selectClass, dock, &ClassSelector::selectClass);
 }
 
 void MainWindow::setupMenuBar()

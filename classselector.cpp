@@ -39,6 +39,11 @@ ClassSelector::ClassSelector(QWidget* parent)
     setupShortcuts();
 }
 
+void ClassSelector::selectClass(quint8 class_index)
+{
+    m_button_group->buttons()[class_index]->click();
+}
+
 QWidget* ClassSelector::buildButtonWidget()
 {
     auto* w = new QWidget;
@@ -65,6 +70,6 @@ void ClassSelector::setupShortcuts()
     {
         auto* shortcut = new QShortcut(QKeySequence(Qt::Key_F1 + i), this);
         shortcut->setContext(Qt::ApplicationShortcut);
-        connect(shortcut, &QShortcut::activated, [this, i]() { m_button_group->buttons()[i]->click(); });
+        connect(shortcut, &QShortcut::activated, [this, i]() { ClassSelector::selectClass(i); });
     }
 }

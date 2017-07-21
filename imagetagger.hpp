@@ -40,6 +40,8 @@ public:
 signals:
     void newCurrentClass(QString name);
 
+    void selectClass(quint8 class_id);
+
 protected:
     virtual void resizeEvent(QResizeEvent* evt) override;
 
@@ -54,10 +56,17 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent* evt) override;
 
 private:
+    enum class Button
+    {
+        Left,
+        Right,
+        Wheel
+    };
+
     QImage m_result;
     bool m_display_grid = true;
     bool m_display_annotations = true;
-    bool m_mouse_pressed = false;
+    boost::optional<Button> m_current_button_pressed;
     quint8 m_current_class = 0;
     QPixmap m_pixmap;
     boost::optional<Region> m_current_region;
@@ -78,5 +87,14 @@ private:
 
     void paintCurrentRegion(QPainter& p);
 
-    void tagRegion(const Region& region);
+    void tagRegion(const Region& region, boost::optional<quint8> classes = {});
+
+    /**
+     * @brief processClick
+     * @param pos
+     * @pre m_current_button_pressed is set
+     */
+    void processClick(const Region& pos);
+
+    quint8 classAtPosition(const Region& pos) const;
 };

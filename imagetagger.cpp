@@ -93,7 +93,7 @@ void ImageTagger::leaveEvent(QEvent* evt)
 {
     Q_UNUSED(evt);
     m_current_region.reset();
-    m_mouse_pressed = false;
+    m_current_button_pressed.reset();
     update();
 }
 
@@ -103,26 +103,30 @@ void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
     m_current_region = screenToRegion(evt->pos());
     if(m_result.rect().contains(m_current_region->x(), m_current_region->y()))
     {
-        const auto class_id = qRed(m_result.pixel(m_current_region->x(), m_current_region->y()));
-        emit newCurrentClass(Classes::classes()[class_id].name());
+        emit newCurrentClass(Classes::classes()[classAtPosition(*m_current_region)].name());
     }
-    if(m_mouse_pressed) tagRegion(screenToRegion(evt->pos()));
+    if(m_current_button_pressed) processClick(*m_current_region);
     update();
 }
 
 void ImageTagger::mousePressEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
-    m_mouse_pressed = true;
-    tagRegion(screenToRegion(evt->pos()));
+    if(evt->button() == Qt::LeftButton)
+        m_current_button_pressed = Button::Left;
+    else if(evt->button() == Qt::RightButton)
+        m_current_button_pressed = Button::Right;
+    else if(evt->button() == Qt::MiddleButton)
+        m_current_button_pressed = Button::Wheel;
+    processClick(screenToRegion(evt->pos()));
     update();
 }
 
 void ImageTagger::mouseReleaseEvent(QMouseEvent* evt)
 {
     if(m_pixmap.isNull()) return;
-    tagRegion(screenToRegion(evt->pos()));
-    m_mouse_pressed = false;
+    processClick(screenToRegion(evt->pos()));
+    m_current_button_pressed.reset();
     update();
 }
 
@@ -175,8 +179,33 @@ void ImageTagger::paintCurrentRegion(QPainter& p)
     p.restore();
 }
 
-void ImageTagger::tagRegion(const Region& region)
+void ImageTagger::tagRegion(const Region& region, boost::optional<quint8> classes)
 {
+    if(!classes) classes = m_current_class;
     if(region.x() >= 0 && region.x() < m_result.width() && region.y() >= 0 && region.y() < m_result.height())
-        m_result.setPixel(region.x(), region.y(), qRgb(m_current_class, m_current_class, m_current_class));
+        m_result.setPixel(region.x(), region.y(), qRgb(*classes, *classes, *classes));
+}
+
+void ImageTagger::processClick(const Region& pos)
+{
+    assert(m_current_button_pressed);
+    switch(*m_current_button_pressed)
+    {
+    case Button::Left:
+        tagRegion(pos);
+        return;
+    case Button::Right:
+        tagRegion(pos, 0);
+        return;
+    case Button::Wheel:
+        const auto class_id = classAtPosition(*m_current_region);
+        emit selectClass(class_id);
+        return;
+    }
+}
+
+quint8 ImageTagger::classAtPosition(const Region& pos) const
+{
+    return qRed(m_result.pixel(pos.x(), pos.y()));
+    ;
 }
