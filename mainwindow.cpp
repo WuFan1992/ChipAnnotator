@@ -10,11 +10,21 @@
 
 #include <QDebug>
 
+namespace
+{
+
+    auto loadImageStack(const QStringList& files)
+    {
+        std::array<QPixmap, 3> res;
+        std::copy(files.begin(), files.end(), res.begin());
+        return res;
+    }
+}
+
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
     setupMenuBar();
-    setupStatusBar();
 
     m_tagger = new ImageTagger;
     setCentralWidget(m_tagger);
@@ -25,6 +35,7 @@ MainWindow::MainWindow(QWidget* parent)
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
     connect(dock, &ClassSelector::classSelected, m_tagger, &ImageTagger::setClass);
+    connect(dock, &ClassSelector::channelSelected, m_tagger, &ImageTagger::setChannel);
     connect(m_tagger, &ImageTagger::selectClass, dock, &ClassSelector::selectClass);
 }
 
@@ -44,21 +55,32 @@ void MainWindow::setupMenuBar()
                             tr("Ctrl+D"));
 }
 
-void MainWindow::setupStatusBar()
+bool MainWindow::isFileNameValid(const QString& filename)
 {
+    return filename.endsWith("_1.tif") || filename.endsWith("_2.tif") || filename.endsWith("_3.tif");
+}
+
+QStringList MainWindow::createAllFileNames(const QString& filename)
+{
+    assert(isFileNameValid(filename));
+    const auto root = filename.left(filename.size() - 5);
+    return QStringList() << root + "1.tif" << root + "2.tif" << root + "3.tif";
 }
 
 void MainWindow::onOpenClicked()
 {
-    const auto file = QFileDialog::getOpenFileName(this, tr("Select an image to open"), {}, "*.tif");
-    if(file.isEmpty()) return;
+    auto file = QFileDialog::getOpenFileName(this, tr("Select an image to open"), {}, "*.tif");
+    if(!isFileNameValid(file)) return;
+    const auto files = createAllFileNames(file);
+    for(const auto& f : files)
+        if(!QFileInfo(f).exists()) return;
     try
     {
-        auto annotation = file;
+        auto annotation = files.front();
         annotation.chop(4);
         annotation += "_mask.tif";
-        m_current_image_file_path = file;
-        m_tagger->display(file, (QFileInfo::exists(annotation) ? annotation : ""));
+        m_current_image_file_path = files.front();
+        m_tagger->display(loadImageStack(files), (QFileInfo::exists(annotation) ? annotation : ""));
     }
     catch(const std::runtime_error& ex)
     {

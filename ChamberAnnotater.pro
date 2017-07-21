@@ -19,3 +19,6 @@ HEADERS  += mainwindow.hpp \
     classselector.hpp \
     classes.hpp \
     utils.hpp
+
+RESOURCES += \
+    images.qrc

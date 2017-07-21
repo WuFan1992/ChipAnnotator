@@ -24,13 +24,14 @@ ImageTagger::ImageTagger(QWidget* parent)
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
 
-void ImageTagger::display(const QPixmap& pixmap, const QString& annotation)
+void ImageTagger::display(const ImageStack_t& images, const QString& annotation)
 {
-    if(pixmap.size() != c_image_resolution)
-        throw std::runtime_error("Image resolution unsupported : " + std::to_string(pixmap.size().width()) + "x"
-                                 + std::to_string(pixmap.size().height()));
-    m_pixmap = pixmap;
-    setPixmap(m_pixmap.scaled(size(), Qt::KeepAspectRatio));
+    for(const auto& pixmap : images)
+        if(pixmap.size() != c_image_resolution)
+            throw std::runtime_error("Image resolution unsupported : " + std::to_string(pixmap.size().width()) + "x"
+                                     + std::to_string(pixmap.size().height()));
+    m_images = images;
+    updateBackgroundImage();
     if(annotation.isEmpty())
         m_result.fill(0);
     else
@@ -72,17 +73,23 @@ const QImage& ImageTagger::result() const
     return m_result;
 }
 
+void ImageTagger::setChannel(quint8 channel_index)
+{
+    m_current_channel = channel_index;
+    updateBackgroundImage();
+}
+
 void ImageTagger::resizeEvent(QResizeEvent* evt)
 {
     Q_UNUSED(evt);
-    if(m_pixmap.isNull()) return;
-    setPixmap(m_pixmap.scaled(size(), Qt::KeepAspectRatio));
+    if(!hasImagesLoaded()) return;
+    setPixmap(m_images[m_current_channel].scaled(size(), Qt::KeepAspectRatio));
 }
 
 void ImageTagger::paintEvent(QPaintEvent* evt)
 {
     QLabel::paintEvent(evt);
-    if(m_pixmap.isNull()) return;
+    if(!hasImagesLoaded()) return;
     QPainter p(this);
     if(m_display_annotations) paintAnnotations(p);
     if(m_current_region) paintCurrentRegion(p);
@@ -99,7 +106,7 @@ void ImageTagger::leaveEvent(QEvent* evt)
 
 void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
 {
-    if(m_pixmap.isNull()) return;
+    if(!hasImagesLoaded()) return;
     m_current_region = screenToRegion(evt->pos());
     if(m_result.rect().contains(m_current_region->x(), m_current_region->y()))
     {
@@ -111,7 +118,7 @@ void ImageTagger::mouseMoveEvent(QMouseEvent* evt)
 
 void ImageTagger::mousePressEvent(QMouseEvent* evt)
 {
-    if(m_pixmap.isNull()) return;
+    if(!hasImagesLoaded()) return;
     if(evt->button() == Qt::LeftButton)
         m_current_button_pressed = Button::Left;
     else if(evt->button() == Qt::RightButton)
@@ -124,7 +131,7 @@ void ImageTagger::mousePressEvent(QMouseEvent* evt)
 
 void ImageTagger::mouseReleaseEvent(QMouseEvent* evt)
 {
-    if(m_pixmap.isNull()) return;
+    if(!hasImagesLoaded()) return;
     processClick(screenToRegion(evt->pos()));
     m_current_button_pressed.reset();
     update();
@@ -132,7 +139,7 @@ void ImageTagger::mouseReleaseEvent(QMouseEvent* evt)
 
 auto ImageTagger::screenToRegion(const QPoint& pos) const -> Region
 {
-    assert(!m_pixmap.isNull());
+    assert(hasImagesLoaded());
     return Region(pos.x() / increment().x(), pos.y() / increment().y());
 }
 
@@ -208,4 +215,16 @@ quint8 ImageTagger::classAtPosition(const Region& pos) const
 {
     return qRed(m_result.pixel(pos.x(), pos.y()));
     ;
+}
+
+bool ImageTagger::hasImagesLoaded() const
+{
+    return m_images.size() == 3 && !m_images.front().isNull();
+}
+
+void ImageTagger::updateBackgroundImage()
+{
+    const auto& img = m_images[m_current_channel];
+    if(!img.isNull()) setPixmap(img.scaled(size(), Qt::KeepAspectRatio));
+    update();
 }

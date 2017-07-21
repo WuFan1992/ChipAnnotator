@@ -18,7 +18,15 @@ private:
 
     void setupMenuBar();
 
-    void setupStatusBar();
+    static bool isFileNameValid(const QString& filename);
+
+    /**
+     * @brief createAllFileNames
+     * @pre isFileNameValid(filename)
+     * @param filename
+     * @return
+     */
+    static QStringList createAllFileNames(const QString& filename);
 
 private slots:
     void onOpenClicked();
