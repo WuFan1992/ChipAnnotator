@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include <QLabel>
 
 #include <boost/optional.hpp>
@@ -18,12 +20,14 @@ public:
         using QPoint::y;
     };
 
+    using ImageStack_t = std::array<QPixmap, 3>;
+
     explicit ImageTagger(QWidget* parent = nullptr);
 
     static const QSize c_image_resolution;
     static const QSize c_annotation_resolution;
 
-    void display(const QPixmap& pixmap, const QString& annotation = "");
+    void display(const ImageStack_t& images, const QString& annotation = "");
 
     bool isGridEnabled() const;
 
@@ -36,6 +40,8 @@ public:
     void setClass(quint8 class_index);
 
     const QImage& result() const;
+
+    void setChannel(quint8 channel_index);
 
 signals:
     void newCurrentClass(QString name);
@@ -68,8 +74,9 @@ private:
     bool m_display_annotations = true;
     boost::optional<Button> m_current_button_pressed;
     quint8 m_current_class = 0;
-    QPixmap m_pixmap;
+    ImageStack_t m_images;
     boost::optional<Region> m_current_region;
+    quint8 m_current_channel = 0;
 
     /**
     * @pre m_pixmap is valid
@@ -97,4 +104,6 @@ private:
     void processClick(const Region& pos);
 
     quint8 classAtPosition(const Region& pos) const;
+
+    bool hasImagesLoaded() const;
 };
