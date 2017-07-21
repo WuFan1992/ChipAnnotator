@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="Global_Blue_Dot.png">images/Global_Blue_Dot.png</file>
+        <file alias="Global_Green_Dot.png">images/Global_Green_Dot.png</file>
+        <file alias="Global_Red_Dot.png">images/Global_Red_Dot.png</file>
+    </qresource>
+</RCC>
