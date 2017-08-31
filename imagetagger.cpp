@@ -145,7 +145,7 @@ auto ImageTagger::screenToRegion(const QPoint& pos) const -> Region
 
 QPointF ImageTagger::increment() const
 {
-    assert(!m_pixmap.isNull());
+    // assert(!m_pixmap.isNull());
     const auto grid_size = pixmap()->size();
     const auto x = (double)grid_size.width() / c_annotation_resolution.width();
     const auto y = (double)grid_size.height() / c_annotation_resolution.height();
