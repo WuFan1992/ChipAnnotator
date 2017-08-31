@@ -3,5 +3,7 @@
         <file alias="Global_Blue_Dot.png">images/Global_Blue_Dot.png</file>
         <file alias="Global_Green_Dot.png">images/Global_Green_Dot.png</file>
         <file alias="Global_Red_Dot.png">images/Global_Red_Dot.png</file>
+        <file alias="List_Minus_1.png">images/List_Minus_1.png</file>
+        <file alias="List_Plus_1.png">images/List_Plus_1.png</file>
     </qresource>
 </RCC>
