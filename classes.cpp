@@ -21,16 +21,16 @@ QList<Classes> Classes::s_classes
                        << Classes{QString("Polydispersité"), Classes::c_color[3]}
                        << Classes{QString("Région claire"), Classes::c_color[4]}
                        << Classes{QString("Inhomogénéité d’amplification"), Classes::c_color[5]}
-                       << Classes{QString("Inhibition"), Classes::c_color[6]}
-                       << Classes{QString("Mouillage"), Classes::c_color[7]}
-                       << Classes{QString("Gouttes démouillées"), Classes::c_color[8]}
-                       << Classes{QString("Région sombre"), Classes::c_color[9]}
-                       << Classes{QString("Gouttes collées dans la pente"), Classes::c_color[10]}
-                       << Classes{QString("Muraille"), Classes::c_color[11]}
-                       << Classes{QString("Trace de TS"), Classes::c_color[12]}
-                       << Classes{QString("Injecteur bouché"), Classes::c_color[13]}
-                       << Classes{QString("Précipité"), Classes::c_color[14]}
-                       << Classes{QString("Dédoublement"), Classes::c_color[15]}
+                       << Classes{QString("Mouillage"), Classes::c_color[6]}
+                       << Classes{QString("Gouttes démouillées"), Classes::c_color[7]}
+                       << Classes{QString("Région sombre"), Classes::c_color[8]}
+                       << Classes{QString("Gouttes collées dans la pente"), Classes::c_color[9]}
+                       << Classes{QString("Muraille"), Classes::c_color[10]}
+                       << Classes{QString("Trace de TS"), Classes::c_color[11]}
+                       << Classes{QString("Injecteur bouché"), Classes::c_color[12]}
+                       << Classes{QString("Précipité"), Classes::c_color[13]}
+                       << Classes{QString("Dédoublement"), Classes::c_color[14]}
+                       << Classes{QString("Out of Focus"), Classes::c_color[15]}
                        << Classes{QString("Autres"), Classes::c_color[16]}
                        << Classes{QString("Artefact général"), Classes::c_color[17]};
 
