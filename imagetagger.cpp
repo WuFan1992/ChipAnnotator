@@ -79,6 +79,43 @@ void ImageTagger::setChannel(quint8 channel_index)
     updateBackgroundImage();
 }
 
+void ImageTagger::resetContrastBrightness()
+{
+
+    updateBackgroundImage();
+}
+
+void ImageTagger::autoContrastBrightness()
+{
+    if(!hasImagesLoaded()) return;
+
+    updateBackgroundImage();
+}
+
+void ImageTagger::moreContrast()
+{
+
+    updateBackgroundImage();
+}
+
+void ImageTagger::lessContrast()
+{
+
+    updateBackgroundImage();
+}
+
+void ImageTagger::moreBrightness()
+{
+
+    updateBackgroundImage();
+}
+
+void ImageTagger::lessBrightness()
+{
+
+    updateBackgroundImage();
+}
+
 void ImageTagger::resizeEvent(QResizeEvent* evt)
 {
     Q_UNUSED(evt);

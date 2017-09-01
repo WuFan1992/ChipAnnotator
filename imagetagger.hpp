@@ -43,6 +43,13 @@ public:
 
     void setChannel(quint8 channel_index);
 
+    void resetContrastBrightness();
+    void autoContrastBrightness();
+    void moreContrast();
+    void lessContrast();
+    void moreBrightness();
+    void lessBrightness();
+
 signals:
     void newCurrentClass(QString name);
 

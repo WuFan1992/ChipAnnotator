@@ -1,9 +1,11 @@
 #include "classselector.hpp"
 
 #include "classes.hpp"
+#include "contrastadjustmentbuttons.hpp"
 #include "utils.hpp"
 
 #include <QButtonGroup>
+#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QPainter>
 #include <QPushButton>
@@ -34,6 +36,8 @@ ClassSelector::ClassSelector(QWidget* parent)
     lay->setMargin(0);
 
     lay->addWidget(createChannelSelectionWidget());
+    auto* contrast_editor = new ContrastAdjustmentButtons;
+    lay->addWidget(contrast_editor);
 
     auto* scroll_area = new QScrollArea;
     scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -49,6 +53,17 @@ ClassSelector::ClassSelector(QWidget* parent)
     setupShortcuts();
     selectClass(0);
     m_channels_button_group->buttons()[0]->click();
+
+    connect(contrast_editor, &ContrastAdjustmentButtons::resetClicked, this, &ClassSelector::resetClicked);
+    connect(contrast_editor, &ContrastAdjustmentButtons::autoClicked, this, &ClassSelector::autoClicked);
+    connect(contrast_editor, &ContrastAdjustmentButtons::moreContrastClicked, this,
+            &ClassSelector::moreContrastClicked);
+    connect(contrast_editor, &ContrastAdjustmentButtons::lessContrastClicked, this,
+            &ClassSelector::lessContrastClicked);
+    connect(contrast_editor, &ContrastAdjustmentButtons::moreBrightnessClicked, this,
+            &ClassSelector::moreBrightnessClicked);
+    connect(contrast_editor, &ContrastAdjustmentButtons::lessBrightnessClicked, this,
+            &ClassSelector::lessBrightnessClicked);
 }
 
 void ClassSelector::selectClass(quint8 class_index)
@@ -60,6 +75,8 @@ QWidget* ClassSelector::buildButtonWidget()
 {
     auto* w = new QWidget;
     auto* lay = new QVBoxLayout;
+    lay->setMargin(7);
+    lay->setSpacing(0);
     m_classes_button_group = new QButtonGroup(this);
     for(int i = 0; i < Classes::classes().size(); i++)
     {
@@ -89,7 +106,7 @@ void ClassSelector::setupShortcuts()
 QWidget* ClassSelector::createChannelSelectionWidget()
 {
     m_channels_button_group = new QButtonGroup;
-    auto* w = new QWidget;
+    auto* w = new QGroupBox(tr("Channel Selection"));
     auto* lay = new QHBoxLayout;
     std::vector<QString> images
         = {":/images/Global_Blue_Dot.png", ":/images/Global_Green_Dot.png", ":/images/Global_Red_Dot.png"};
