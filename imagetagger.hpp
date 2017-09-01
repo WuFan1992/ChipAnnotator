@@ -21,6 +21,7 @@ public:
     };
 
     using ImageStack_t = std::array<QPixmap, 3>;
+    using DoubleStack_t = std::array<double, 3>;
 
     explicit ImageTagger(QWidget* parent = nullptr);
 
@@ -84,6 +85,8 @@ private:
     ImageStack_t m_images;
     boost::optional<Region> m_current_region;
     quint8 m_current_channel = 0;
+    DoubleStack_t m_alpha_level = {1., 1., 1.};
+    DoubleStack_t m_beta_level = {0., 0., 0.};
 
     /**
     * @pre m_pixmap is valid
