@@ -235,7 +235,10 @@ void ImageTagger::tagRegion(const Region& region, boost::optional<quint8> classe
 {
     if(!classes) classes = m_current_class;
     if(region.x() >= 0 && region.x() < m_result.width() && region.y() >= 0 && region.y() < m_result.height())
+    {
         m_result.setPixel(region.x(), region.y(), qRgb(*classes, *classes, *classes));
+        emit modified();
+    }
 }
 
 void ImageTagger::processClick(const Region& pos)

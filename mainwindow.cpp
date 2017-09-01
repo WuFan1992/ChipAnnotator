@@ -3,6 +3,7 @@
 #include "classselector.hpp"
 #include "imagetagger.hpp"
 
+#include <QCloseEvent>
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -44,6 +45,17 @@ MainWindow::MainWindow(QWidget* parent)
     connect(dock, &ClassSelector::lessContrastClicked, m_tagger, &ImageTagger::lessContrast);
     connect(dock, &ClassSelector::moreBrightnessClicked, m_tagger, &ImageTagger::moreBrightness);
     connect(dock, &ClassSelector::lessBrightnessClicked, m_tagger, &ImageTagger::lessBrightness);
+
+    connect(m_tagger, &ImageTagger::modified, this, &MainWindow::onAnnotationModified);
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    const auto res = askToSaveAndProceed("close");
+    if(res)
+        event->accept();
+    else
+        event->ignore();
 }
 
 void MainWindow::setupMenuBar()
@@ -73,8 +85,23 @@ QStringList MainWindow::createAllFileNames(const QString& filename)
     return QStringList() << root + "1.tif" << root + "2.tif" << root + "3.tif";
 }
 
+bool MainWindow::askToSaveAndProceed(const QString& action)
+{
+    if(m_modified)
+    {
+        const auto res
+            = QMessageBox::question(this, tr("You have unsaved work"),
+                                    "You are about to " + action + " but you have unsaved work.\nDo you want to save?",
+                                    QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        if(res == QMessageBox::Cancel) return false;
+        if(res == QMessageBox::Yes) onSaveClicked();
+    }
+    return true;
+}
+
 void MainWindow::onOpenClicked()
 {
+    if(!askToSaveAndProceed("open a new image")) return;
     auto file = QFileDialog::getOpenFileName(this, tr("Select an image to open"), {}, "*.tif");
     if(!isFileNameValid(file)) return;
     const auto files = createAllFileNames(file);
@@ -87,6 +114,8 @@ void MainWindow::onOpenClicked()
         annotation += "_mask.tif";
         m_current_image_file_path = files.front();
         m_tagger->display(loadImageStack(files), (QFileInfo::exists(annotation) ? annotation : ""));
+        setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
+        m_modified = false;
     }
     catch(const std::runtime_error& ex)
     {
@@ -102,4 +131,12 @@ void MainWindow::onSaveClicked()
     output_file_path.chop(4);
     output_file_path += "_mask.tif";
     m_tagger->result().save(output_file_path);
+    setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
+    m_modified = false;
+}
+
+void MainWindow::onAnnotationModified()
+{
+    m_modified = true;
+    setWindowTitle(QFileInfo(m_current_image_file_path).fileName() + "*");
 }

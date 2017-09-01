@@ -56,6 +56,8 @@ signals:
 
     void selectClass(quint8 class_id);
 
+    void modified();
+
 protected:
     virtual void resizeEvent(QResizeEvent* evt) override;
 
