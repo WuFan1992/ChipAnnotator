@@ -1,6 +1,7 @@
 #include "imagetagger.hpp"
 
 #include "classes.hpp"
+#include "contrasteditor.hpp"
 #include "utils.hpp"
 
 #include <QMouseEvent>
@@ -31,6 +32,10 @@ void ImageTagger::display(const ImageStack_t& images, const QString& annotation)
             throw std::runtime_error("Image resolution unsupported : " + std::to_string(pixmap.size().width()) + "x"
                                      + std::to_string(pixmap.size().height()));
     m_images = images;
+    for(auto& a : m_alpha_level)
+        a = 1.0f;
+    for(auto& b : m_beta_level)
+        b = 0.0f;
     updateBackgroundImage();
     if(annotation.isEmpty())
         m_result.fill(0);
@@ -76,6 +81,46 @@ const QImage& ImageTagger::result() const
 void ImageTagger::setChannel(quint8 channel_index)
 {
     m_current_channel = channel_index;
+    updateBackgroundImage();
+}
+
+void ImageTagger::resetContrastBrightness()
+{
+    m_alpha_level[m_current_channel] = 1.0f;
+    m_beta_level[m_current_channel] = 0.0f;
+    updateBackgroundImage();
+}
+
+void ImageTagger::autoContrastBrightness()
+{
+    if(!hasImagesLoaded()) return;
+    const auto result = ContrastEditor::autoAdjustContrast(m_images[m_current_channel].toImage());
+    m_alpha_level[m_current_channel] = result.m_alpha;
+    m_beta_level[m_current_channel] = result.m_beta;
+    updateBackgroundImage();
+}
+
+void ImageTagger::moreContrast()
+{
+    m_alpha_level[m_current_channel] *= 1.6;
+    updateBackgroundImage();
+}
+
+void ImageTagger::lessContrast()
+{
+    m_alpha_level[m_current_channel] *= 0.625;
+    updateBackgroundImage();
+}
+
+void ImageTagger::moreBrightness()
+{
+    m_beta_level[m_current_channel] += 10;
+    updateBackgroundImage();
+}
+
+void ImageTagger::lessBrightness()
+{
+    m_beta_level[m_current_channel] -= 10;
     updateBackgroundImage();
 }
 
@@ -145,7 +190,7 @@ auto ImageTagger::screenToRegion(const QPoint& pos) const -> Region
 
 QPointF ImageTagger::increment() const
 {
-    assert(!m_pixmap.isNull());
+    // assert(!m_pixmap.isNull());
     const auto grid_size = pixmap()->size();
     const auto x = (double)grid_size.width() / c_annotation_resolution.width();
     const auto y = (double)grid_size.height() / c_annotation_resolution.height();
@@ -224,7 +269,13 @@ bool ImageTagger::hasImagesLoaded() const
 
 void ImageTagger::updateBackgroundImage()
 {
-    const auto& img = m_images[m_current_channel];
-    if(!img.isNull()) setPixmap(img.scaled(size(), Qt::KeepAspectRatio));
+    const auto& pix = m_images[m_current_channel];
+    if(!pix.isNull())
+    {
+        const auto img = pix.scaled(size(), Qt::KeepAspectRatio).toImage();
+        const auto processed_image
+            = ContrastEditor::modifyContrast(img, m_alpha_level[m_current_channel], m_beta_level[m_current_channel]);
+        setPixmap(QPixmap::fromImage(processed_image));
+    }
     update();
 }

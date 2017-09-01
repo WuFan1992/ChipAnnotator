@@ -37,6 +37,13 @@ MainWindow::MainWindow(QWidget* parent)
     connect(dock, &ClassSelector::classSelected, m_tagger, &ImageTagger::setClass);
     connect(dock, &ClassSelector::channelSelected, m_tagger, &ImageTagger::setChannel);
     connect(m_tagger, &ImageTagger::selectClass, dock, &ClassSelector::selectClass);
+
+    connect(dock, &ClassSelector::resetClicked, m_tagger, &ImageTagger::resetContrastBrightness);
+    connect(dock, &ClassSelector::autoClicked, m_tagger, &ImageTagger::autoContrastBrightness);
+    connect(dock, &ClassSelector::moreContrastClicked, m_tagger, &ImageTagger::moreContrast);
+    connect(dock, &ClassSelector::lessContrastClicked, m_tagger, &ImageTagger::lessContrast);
+    connect(dock, &ClassSelector::moreBrightnessClicked, m_tagger, &ImageTagger::moreBrightness);
+    connect(dock, &ClassSelector::lessBrightnessClicked, m_tagger, &ImageTagger::lessBrightness);
 }
 
 void MainWindow::setupMenuBar()

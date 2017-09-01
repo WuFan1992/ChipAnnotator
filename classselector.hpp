@@ -15,6 +15,14 @@ signals:
 
     void channelSelected(quint8 channel_index);
 
+    void resetClicked();
+    void autoClicked();
+
+    void moreContrastClicked();
+    void lessContrastClicked();
+    void moreBrightnessClicked();
+    void lessBrightnessClicked();
+
 public slots:
     void selectClass(quint8 class_index);
 
