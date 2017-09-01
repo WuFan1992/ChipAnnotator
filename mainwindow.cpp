@@ -52,7 +52,6 @@ void MainWindow::setupMenuBar()
     file_menu->addAction(tr("&Open"), this, &MainWindow::onOpenClicked, tr("Ctrl+O"));
     file_menu->addSeparator();
     file_menu->addAction(tr("&Save"), this, &MainWindow::onSaveClicked, tr("Ctrl+S"));
-    file_menu->addAction(tr("&Save As"), this, &MainWindow::onSaveAsClicked, tr("Ctrl+Shift+S"));
 
     auto* display_menu = menuBar()->addMenu(tr("&Display"));
     display_menu->addAction(tr("Toggle grid"), [this]() { m_tagger->setGridEnabled(!m_tagger->isGridEnabled()); },
@@ -103,9 +102,4 @@ void MainWindow::onSaveClicked()
     output_file_path.chop(4);
     output_file_path += "_mask.tif";
     m_tagger->result().save(output_file_path);
-}
-
-void MainWindow::onSaveAsClicked()
-{
-    qDebug() << "MainWindow::onSaveAsClicked()";
 }

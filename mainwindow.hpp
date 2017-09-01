@@ -32,6 +32,4 @@ private slots:
     void onOpenClicked();
 
     void onSaveClicked();
-
-    void onSaveAsClicked();
 };
