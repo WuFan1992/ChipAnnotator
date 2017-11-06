@@ -6,6 +6,7 @@
 
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDebug>
 
 const QSize ImageTagger::c_image_resolution(3264, 2304);
 const QSize ImageTagger::c_annotation_resolution(51, 36);
@@ -22,7 +23,7 @@ ImageTagger::ImageTagger(QWidget* parent)
     m_result.fill(0);
     setMouseTracking(true);
     setMinimumSize(800, 600);
-    setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    setAlignment(Qt::AlignLeft | Qt::AlignTop);  // For what ???
 }
 
 void ImageTagger::display(const ImageStack_t& images, const QString& annotation)
@@ -192,9 +193,10 @@ QPointF ImageTagger::increment() const
 {
     // assert(!m_pixmap.isNull());
     const auto grid_size = pixmap()->size();
-    const auto x = (double)grid_size.width() / c_annotation_resolution.width();
+    const auto x = (double)grid_size.width()/ c_annotation_resolution.width();
     const auto y = (double)grid_size.height() / c_annotation_resolution.height();
     return {x, y};
+
 }
 
 void ImageTagger::paintAnnotations(QPainter& p)
@@ -202,9 +204,10 @@ void ImageTagger::paintAnnotations(QPainter& p)
     for(int x = 0; x < c_annotation_resolution.width(); x++)
         for(int y = 0; y < c_annotation_resolution.height(); y++)
         {
+
             const auto value = qGray(m_result.pixel(x, y));
             if(value == 0) continue;
-            Utils::drawRectForClass(p, Classes::classes()[value],
+           Utils::drawRectForClass(p, Classes::classes()[value],
                                     QRect(increment().x() * x, increment().y() * y, increment().x(), increment().y()));
         }
 }

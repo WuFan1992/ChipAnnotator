@@ -21,7 +21,8 @@ public:
     };
 
     using ImageStack_t = std::array<QPixmap, 3>;
-    using DoubleStack_t = std::array<double, 3>;
+    using DoubleStack_t
+    = std::array<double, 3>;
 
     explicit ImageTagger(QWidget* parent = nullptr);
 

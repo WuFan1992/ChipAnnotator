@@ -1,8 +1,16 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsItem>
+#include <QComboBox>
+#include <QList>
+#include <QPushButton>
 
-class ImageTagger;
+#include "annotatorscene.h"
+#include "annotatorview.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -16,7 +24,20 @@ protected:
     virtual void closeEvent(QCloseEvent* event) override;
 
 private:
-    ImageTagger* m_tagger;
+    //ImageTagger* m_tagger;
+
+    AnnotatorScene *annotateur;
+    AnnotatorView *annotaview;
+    QComboBox *sceneScaleCombo;
+
+
+    QList<QGraphicsLineItem *> horizonLine_List;
+    QList<QGraphicsLineItem *> verticalLine_List;
+
+    void prePaintGrid();
+
+
+
     QString m_current_image_file_path;
     bool m_modified = false;
 
@@ -37,10 +58,21 @@ private:
     */
     bool askToSaveAndProceed(const QString& action);
 
-private slots:
+//private slots:
+public slots:
+
     void onOpenClicked();
 
     void onSaveClicked();
 
     void onAnnotationModified();
+
+
+    void sceneScaleChanged(const QString &scale);
+
+
+    void PaintGrid(bool m_display_grid);
+
+    void ShowItem();
+   // void PaintAnnotation(bool m_display_annotations);
 };

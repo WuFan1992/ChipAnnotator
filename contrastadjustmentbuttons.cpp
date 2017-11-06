@@ -1,3 +1,4 @@
+
 #include "contrastadjustmentbuttons.hpp"
 
 #include <QLabel>

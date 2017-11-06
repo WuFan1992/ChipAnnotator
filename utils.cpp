@@ -3,6 +3,8 @@
 #include "classes.hpp"
 
 #include <QPainter>
+#include <QColor>
+
 
 void Utils::drawRectForClass(QPainter& painter, const Classes& c, const QRect& rect)
 {
@@ -21,4 +23,12 @@ void Utils::drawRectForClass(QPainter& painter, const Classes& c, const QRect& r
     painter.drawRect(rect);
 
     painter.restore();
+}
+
+
+void Utils::drawRectForClass(AnnotatorScene *annotatorscene, const Classes &c, const QRect &rect)
+{
+       auto color = c.color();
+       color.setAlpha(150);
+       annotatorscene->addRect(rect,QPen(QColor(255,0,0)),QBrush(color));
 }
