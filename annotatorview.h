@@ -13,17 +13,11 @@ class QGraphicsScene;
 class AnnotatorView : public QGraphicsView
 {
 
+      Q_OBJECT
 public:
     explicit AnnotatorView(QGraphicsScene * scene, QWidget * parent = 0);
 
-protected:
-    virtual void wheelEvent(QWheelEvent* event);
-    virtual void mouseMoveEvent(QMouseEvent* evt);
-    virtual void mousePressEvent(QMouseEvent* evt) override;
-    virtual void mouseReleaseEvent(QMouseEvent* evt) override;
-
-
-private:
+public:
     enum class Button
     {
         Left,
@@ -31,17 +25,26 @@ private:
         Wheel
     };
 
-signals:
-    void newCurrentClass(QString name);
+protected:
+    virtual void wheelEvent(QWheelEvent* event);
+    virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void mousePressEvent(QMouseEvent* evt) override;
+    virtual void mouseReleaseEvent(QMouseEvent* evt) override;
 
+    AnnotatorScene::Region screenToRegion(const QPointF &pos) const;
 
 public:
    boost::optional<AnnotatorScene::Region> m_current_region;
-   AnnotatorScene::Region screenToRegion(const QPointF& pos) const;
-    boost::optional<Button> m_current_button_pressed;
+   boost::optional<Button> m_current_button_pressed;
 
-    //void tagRegion(const Region& region, boost::optional<quint8> classes = {});
-    void processClick(const AnnotatorScene::Region& pos);
+
+signals:
+   void mouseMoveSignal(boost::optional<AnnotatorScene::Region> m_current_region);
+   void mousePressSignal(AnnotatorScene::Region mousePressPos);
+   void mouseReleaseSignal(AnnotatorScene::Region mouseReleasePos);
+
+
+
 
 
 

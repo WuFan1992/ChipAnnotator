@@ -60,11 +60,11 @@ public:
 
 
 signals:
-    void newCurrentClass(QString name);
+    //void newCurrentClass(QString name);
 
     void selectClass(quint8 class_id);
 
-    void modified();
+    //void modified();
 
     void gridOn(bool enabled);
 

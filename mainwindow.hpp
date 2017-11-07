@@ -10,6 +10,7 @@
 
 #include "annotatorscene.h"
 #include "annotatorview.h"
+#include "classes.hpp"
 
 
 class MainWindow : public QMainWindow
@@ -36,8 +37,6 @@ private:
 
     void prePaintGrid();
 
-
-
     QString m_current_image_file_path;
     bool m_modified = false;
 
@@ -59,6 +58,12 @@ private:
     bool askToSaveAndProceed(const QString& action);
 
 //private slots:
+
+signals:
+    void newCurrentClass(QString name);
+    void modified();
+
+
 public slots:
 
     void onOpenClicked();
@@ -67,12 +72,26 @@ public slots:
 
     void onAnnotationModified();
 
-
     void sceneScaleChanged(const QString &scale);
-
 
     void PaintGrid(bool m_display_grid);
 
-    void ShowItem();
+    bool hasImagesLoaded() const;
+
+    void mouseMoveFunction( boost::optional<AnnotatorScene::Region> m_current_region);
+
+    void mousePressFunction(AnnotatorScene::Region mousePressPos);
+
+    void mouseReleaseFunction(AnnotatorScene::Region mouseReleasePos);
+
+    quint8 classAtPosition(const AnnotatorScene::Region& pos) const;
+
+     void processClick(const AnnotatorScene::Region& pos);
+
+     void tagRegion(const AnnotatorScene::Region& region, boost::optional<quint8> classes = {});
+
+
    // void PaintAnnotation(bool m_display_annotations);
+
+
 };

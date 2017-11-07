@@ -59,7 +59,8 @@ SOURCES       = main.cpp \
 		debug\moc_imagetagger.cpp \
 		debug\moc_classselector.cpp \
 		debug\moc_contrastadjustmentbuttons.cpp \
-		debug\moc_annotatorscene.cpp
+		debug\moc_annotatorscene.cpp \
+		debug\moc_annotatorview.cpp
 OBJECTS       = debug\main.obj \
 		debug\mainwindow.obj \
 		debug\imagetagger.obj \
@@ -75,7 +76,8 @@ OBJECTS       = debug\main.obj \
 		debug\moc_imagetagger.obj \
 		debug\moc_classselector.obj \
 		debug\moc_contrastadjustmentbuttons.obj \
-		debug\moc_annotatorscene.obj
+		debug\moc_annotatorscene.obj \
+		debug\moc_annotatorview.obj
 
 DIST          =  mainwindow.hpp \
 		imagetagger.hpp \
@@ -151,7 +153,7 @@ all: Makefile.Debug  $(DESTDIR_TARGET)
 
 $(DESTDIR_TARGET):  $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-debug\main.obj debug\mainwindow.obj debug\imagetagger.obj debug\classselector.obj debug\classes.obj debug\utils.obj debug\contrastadjustmentbuttons.obj debug\contrasteditor.obj debug\annotatorscene.obj debug\annotatorview.obj debug\qrc_images.obj debug\moc_mainwindow.obj debug\moc_imagetagger.obj debug\moc_classselector.obj debug\moc_contrastadjustmentbuttons.obj debug\moc_annotatorscene.obj
+debug\main.obj debug\mainwindow.obj debug\imagetagger.obj debug\classselector.obj debug\classes.obj debug\utils.obj debug\contrastadjustmentbuttons.obj debug\contrasteditor.obj debug\annotatorscene.obj debug\annotatorview.obj debug\qrc_images.obj debug\moc_mainwindow.obj debug\moc_imagetagger.obj debug\moc_classselector.obj debug\moc_contrastadjustmentbuttons.obj debug\moc_annotatorscene.obj debug\moc_annotatorview.obj
 $(LIBS)
 <<
 
@@ -164,7 +166,7 @@ dist:
 	$(ZIP) ChamberAnnotater.zip $(SOURCES) $(DIST) ChamberAnnotater.pro C:\Qt\5.9.1\msvc2015_64\mkspecs\features\spec_pre.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\common\angle.conf C:\Qt\5.9.1\msvc2015_64\mkspecs\common\msvc-desktop.conf C:\Qt\5.9.1\msvc2015_64\mkspecs\qconfig.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3danimation.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3danimation_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickanimation.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickscene2d.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_accessibility_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_egl_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_theme_support_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\5.9.1\msvc2015_64\mkspecs\features\qt_functions.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\qt_config.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\win32-msvc\qmake.conf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\5.9.1\msvc2015_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\common\msvc-version.conf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\toolchain.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\default_pre.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\win32\default_pre.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\resolve_config.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\default_post.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\build_pass.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\precompile_header.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\warn_on.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\qt.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\resources.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\moc.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\win32\opengl.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\uic.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\qmake_use.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\file_copies.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\win32\windows.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\testcase_targets.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\exceptions.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\yacc.prf C:\Qt\5.9.1\msvc2015_64\mkspecs\features\lex.prf ChamberAnnotater.pro images.qrc C:\Qt\5.9.1\msvc2015_64\lib\qtmaind.prl C:\Qt\5.9.1\msvc2015_64\lib\Qt5Widgetsd.prl C:\Qt\5.9.1\msvc2015_64\lib\Qt5Guid.prl C:\Qt\5.9.1\msvc2015_64\lib\Qt5Cored.prl   images.qrc C:\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp mainwindow.hpp imagetagger.hpp classselector.hpp classes.hpp utils.hpp contrastadjustmentbuttons.hpp contrasteditor.hpp annotatorscene.h annotatorview.h main.cpp mainwindow.cpp imagetagger.cpp classselector.cpp classes.cpp utils.cpp contrastadjustmentbuttons.cpp contrasteditor.cpp annotatorscene.cpp annotatorview.cpp     
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\mainwindow.obj debug\imagetagger.obj debug\classselector.obj debug\classes.obj debug\utils.obj debug\contrastadjustmentbuttons.obj debug\contrasteditor.obj debug\annotatorscene.obj debug\annotatorview.obj debug\qrc_images.obj debug\moc_mainwindow.obj debug\moc_imagetagger.obj debug\moc_classselector.obj debug\moc_contrastadjustmentbuttons.obj debug\moc_annotatorscene.obj
+	-$(DEL_FILE) debug\main.obj debug\mainwindow.obj debug\imagetagger.obj debug\classselector.obj debug\classes.obj debug\utils.obj debug\contrastadjustmentbuttons.obj debug\contrasteditor.obj debug\annotatorscene.obj debug\annotatorview.obj debug\qrc_images.obj debug\moc_mainwindow.obj debug\moc_imagetagger.obj debug\moc_classselector.obj debug\moc_contrastadjustmentbuttons.obj debug\moc_annotatorscene.obj debug\moc_annotatorview.obj
 	-$(DEL_FILE) debug\ChamberAnnotater.exp debug\ChamberAnnotater.vc.pdb debug\ChamberAnnotater.ilk debug\ChamberAnnotater.idb
 
 distclean: clean 
@@ -200,9 +202,9 @@ compiler_moc_predefs_clean:
 debug\moc_predefs.h: C:\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp
 	cl -BxC:\Qt\5.9.1\msvc2015_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E C:\Qt\5.9.1\msvc2015_64\mkspecs\features\data\dummy.cpp 2>NUL >debug\moc_predefs.h
 
-compiler_moc_header_make_all: debug\moc_mainwindow.cpp debug\moc_imagetagger.cpp debug\moc_classselector.cpp debug\moc_contrastadjustmentbuttons.cpp debug\moc_annotatorscene.cpp
+compiler_moc_header_make_all: debug\moc_mainwindow.cpp debug\moc_imagetagger.cpp debug\moc_classselector.cpp debug\moc_contrastadjustmentbuttons.cpp debug\moc_annotatorscene.cpp debug\moc_annotatorview.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_mainwindow.cpp debug\moc_imagetagger.cpp debug\moc_classselector.cpp debug\moc_contrastadjustmentbuttons.cpp debug\moc_annotatorscene.cpp
+	-$(DEL_FILE) debug\moc_mainwindow.cpp debug\moc_imagetagger.cpp debug\moc_classselector.cpp debug\moc_contrastadjustmentbuttons.cpp debug\moc_annotatorscene.cpp debug\moc_annotatorview.cpp
 debug\moc_mainwindow.cpp: C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qmainwindow.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qtwidgetsglobal.h \
@@ -332,6 +334,9 @@ debug\moc_mainwindow.cpp: C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QMainWindow 
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QList \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QPushButton \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qabstractbutton.h \
 		annotatorscene.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
 		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional.hpp \
@@ -615,6 +620,8 @@ debug\moc_mainwindow.cpp: C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QMainWindow 
 		annotatorview.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QWidget \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QWheelEvent \
+		classes.hpp \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
 		mainwindow.hpp \
 		debug\moc_predefs.h \
 		C:\Qt\5.9.1\msvc2015_64\bin\moc.exe
@@ -1616,6 +1623,404 @@ debug\moc_annotatorscene.cpp: C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QGraphic
 		C:\Qt\5.9.1\msvc2015_64\bin\moc.exe
 	C:\Qt\5.9.1\msvc2015_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/Users/admin/Documents/QtCreator/ChamberAnnotator -IC:/Users/admin/Documents/dev/VS2015-update3-Qt5.9.1/boost_1_65_1 -IC:/Users/admin/Documents/dev/VS2015-update3-Qt5.9.1/opencv-3.3.0/install/include -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.10240.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\winrt" annotatorscene.h -o debug\moc_annotatorscene.cpp
 
+debug\moc_annotatorview.cpp: C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QGraphicsView \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qgraphicsview.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qconfig-bootstrapped.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qtcore-config.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qtgui-config.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpainter.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qrect.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qmargins.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qsize.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpixmap.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qcolor.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qrgb.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qrgba64.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qimage.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpixelformat.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qtransform.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qmatrix.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpolygon.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qregion.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qdatastream.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qline.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpainterpath.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qtextoption.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpen.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qbrush.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qfontinfo.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qfont.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qscrollarea.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qframe.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qwidget.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qpalette.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qcursor.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qkeysequence.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qevent.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qurl.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qurlquery.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qfile.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qfiledevice.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qvector2d.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qgraphicsscene.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QWidget \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QWheelEvent \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\optional.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\assert.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\user.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\detail\select_compiler_config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\nvcc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\gcc_xml.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\cray.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\common_edg.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\comeau.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\pathscale.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\clang.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\intel.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\visualc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\gcc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\digitalmars.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\kai.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\sgi_mipspro.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\compaq_cxx.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\greenhills.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\codegear.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\borland.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\metrowerks.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\sunpro_cc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\hp_acc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\mpw.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\xlcpp_zos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\xlcpp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\vacpp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\compiler\pgi.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\detail\select_stdlib_config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\stlport.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\libcomo.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\no_tr1\utility.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\roguewave.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\libcpp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\libstdcpp3.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\sgi.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\msl.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\detail\posix_features.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\xlcpp_zos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\vacpp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\modena.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\stdlib\dinkumware.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\detail\select_platform_config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\linux.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\bsd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\solaris.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\irix.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\hpux.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\cygwin.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\win32.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\beos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\macos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\zos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\aix.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\amigaos.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\qnxnto.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\vxworks.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\symbian.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\cray.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\platform\vms.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\detail\suffix.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\current_function.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\core\addressof.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\config\workaround.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\core\enable_if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\core\explicit_operator_bool.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\core\swap.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\bad_optional_access.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\static_assert.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\detail\workaround.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\throw_exception.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\exception\exception.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\alignment_of.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\intrinsics.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\version.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_same.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\integral_constant.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_lvalue_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_rvalue_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_volatile.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_void.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\conditional.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_nothrow_constructor.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_trivial_constructor.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_pod.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_scalar.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_arithmetic.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_integral.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_floating_point.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_enum.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\add_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_convertible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\yes_no_type.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_array.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_abstract.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_class.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_union.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_function.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\is_function_ptr_helper.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\is_function_ptr_tester.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_polymorphic.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\add_lvalue_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\add_rvalue_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_reference.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\declval.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_pointer.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_member_pointer.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_member_function_pointer.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\is_mem_fun_pointer_impl.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_cv.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\detail\is_mem_fun_pointer_tester.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_default_constructible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_all_extents.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\type_with_alignment.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_const.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\decay.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_bounds.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\remove_extent.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\add_pointer.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_base_of.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_base_and_derived.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_constructible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_destructible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_nothrow_move_assignable.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_trivial_move_assign.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_const.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_assignable.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_trivial_assign.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_nothrow_assign.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\utility\enable_if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_nothrow_move_constructible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_trivial_move_constructor.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_nothrow_copy.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\is_copy_constructible.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\noncopyable.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\core\noncopyable.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\has_trivial_copy.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\type_traits\add_const.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\utility.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\config_begin.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\workaround.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\utility_core.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\core.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\type_traits.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\meta_utils.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\meta_utils_core.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\detail\config_end.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\move\traits.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\none.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\none_t.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\utility\compare_pointees.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\optional_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_factory_support.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_aligned_storage.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\old_optional_implementation.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\detail\reference_content.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\bool.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\bool_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\adl_barrier.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\adl.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\msvc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\intel.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\gcc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\workaround.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\integral_c_tag.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\static_constant.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\void.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\void_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\na_spec.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\lambda_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\na.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\na_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\ctps.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\lambda.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\ttp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\int.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\int_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\nttp_decl.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\nttp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\cat.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\config\config.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\integral_wrapper.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\static_cast.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\lambda_arity_param.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\template_arity_fwd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\arity.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\dtp.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\params.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\preprocessor.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\comma_if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\punctuation\comma_if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\iif.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\logical\bool.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\empty.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\punctuation\comma.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repeat.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\repeat.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\debug\error.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\detail\auto_rec.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\detail\dmc\auto_rec.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\eat.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\inc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\arithmetic\inc.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\enum.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\def_params_tail.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\limits\arity.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\logical\and.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\logical\bitand.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\identity.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\identity.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\empty.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\filter_params.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\sub.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\preprocessor\tuple.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\arithmetic\sub.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\arithmetic\dec.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\while.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\fold_left.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\detail\edg\fold_left.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\expr_iif.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\adt.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\detail\is_binary.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\detail\check.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\logical\compl.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\detail\dmc\fold_left.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\elem.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\expand.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\overload.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\variadic\size.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\rem.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\detail\is_single_return.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\is_1.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\is_empty.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\is_empty_variadic.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\punctuation\is_begin_parens.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\punctuation\detail\is_begin_parens.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\facilities\detail\is_empty.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\detail\split.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\size.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\variadic\elem.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\detail\fold_left.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\fold_right.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\detail\edg\fold_right.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\detail\fold_right.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\reverse.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\detail\edg\while.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\detail\msvc\while.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\detail\dmc\while.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\control\detail\while.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\arithmetic\add.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\eti.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\overload_resolution.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\if.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\value_wknd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\integral.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\lambda_support.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\yes_no.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\config\arrays.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\tuple\to_list.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\list\for_each_i.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\for.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\detail\edg\for.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\detail\msvc\for.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\detail\dmc\for.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\preprocessor\repetition\detail\for.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\not.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\mpl\aux_\nested_type_wknd.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_reference_spec.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_relops.hpp \
+		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional\detail\optional_swap.hpp \
+		annotatorscene.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QGraphicsScene \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
+		classes.hpp \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
+		annotatorview.h \
+		debug\moc_predefs.h \
+		C:\Qt\5.9.1\msvc2015_64\bin\moc.exe
+	C:\Qt\5.9.1\msvc2015_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/5.9.1/msvc2015_64/mkspecs/win32-msvc -IC:/Users/admin/Documents/QtCreator/ChamberAnnotator -IC:/Users/admin/Documents/dev/VS2015-update3-Qt5.9.1/boost_1_65_1 -IC:/Users/admin/Documents/dev/VS2015-update3-Qt5.9.1/opencv-3.3.0/install/include -IC:/Qt/5.9.1/msvc2015_64/include -IC:/Qt/5.9.1/msvc2015_64/include/QtWidgets -IC:/Qt/5.9.1/msvc2015_64/include/QtGui -IC:/Qt/5.9.1/msvc2015_64/include/QtANGLE -IC:/Qt/5.9.1/msvc2015_64/include/QtCore -I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.10240.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\\winrt" annotatorview.h -o debug\moc_annotatorview.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all:
@@ -1762,6 +2167,9 @@ debug\main.obj: main.cpp mainwindow.hpp \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QList \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QPushButton \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qabstractbutton.h \
 		annotatorscene.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
 		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional.hpp \
@@ -2045,6 +2453,8 @@ debug\main.obj: main.cpp mainwindow.hpp \
 		annotatorview.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QWidget \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QWheelEvent \
+		classes.hpp \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QApplication \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qapplication.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qcoreapplication.h \
@@ -2183,6 +2593,9 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.hpp \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QList \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QPushButton \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qabstractbutton.h \
 		annotatorscene.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
 		..\..\dev\VS2015-update3-Qt5.9.1\boost_1_65_1\boost\optional.hpp \
@@ -2466,6 +2879,8 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.hpp \
 		annotatorview.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QWidget \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QWheelEvent \
+		classes.hpp \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
 		classselector.hpp \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QDockWidget \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qdockwidget.h \
@@ -2489,6 +2904,8 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.hpp \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qlayout.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qlayoutitem.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QMouseEvent \
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\QPointF \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\QDebug
 
 debug\imagetagger.obj: imagetagger.cpp imagetagger.hpp \
@@ -4776,6 +5193,8 @@ debug\annotatorview.obj: annotatorview.cpp annotatorview.h \
 		annotatorscene.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QGraphicsScene \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
+		classes.hpp \
+		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
 		C:\Qt\5.9.1\msvc2015_64\include\QtCore\QDebug
 
 debug\qrc_images.obj: debug\qrc_images.cpp 
@@ -4789,6 +5208,8 @@ debug\moc_classselector.obj: debug\moc_classselector.cpp
 debug\moc_contrastadjustmentbuttons.obj: debug\moc_contrastadjustmentbuttons.cpp 
 
 debug\moc_annotatorscene.obj: debug\moc_annotatorscene.cpp 
+
+debug\moc_annotatorview.obj: debug\moc_annotatorview.cpp 
 
 ####### Install
 

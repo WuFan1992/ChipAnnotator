@@ -2,7 +2,8 @@
 
 #include "classselector.hpp"
 
-//#include "imagetagger.hpp"
+
+
 #include "annotatorscene.h"
 #include "annotatorview.h"
 
@@ -12,6 +13,7 @@
 #include <QMessageBox>
 #include <QStatusBar>
 #include <QHBoxLayout>
+#include <QMouseEvent>
 
 #include <QPointF>
 
@@ -51,8 +53,10 @@ MainWindow::MainWindow(QWidget* parent)
      layout->addWidget(annotaview);
 
 
-   // auto* b = statusBar();
-   //connect(m_tagger, &ImageTagger::newCurrentClass, [b](QString name) { b->showMessage(name); });
+
+      auto* b = statusBar();
+      connect(this, &MainWindow::newCurrentClass, [b](QString name) { b->showMessage(name); });
+
 
 
      sceneScaleCombo = new QComboBox;
@@ -75,6 +79,12 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 
+
+    connect(annotaview,&AnnotatorView::mouseMoveSignal,this,&MainWindow::mouseMoveFunction);
+    connect(annotaview,&AnnotatorView::mousePressSignal,this,&MainWindow::mousePressFunction);
+    connect(annotaview,&AnnotatorView::mouseReleaseSignal,this,&MainWindow::mouseReleaseFunction);
+
+
     connect(dock, &ClassSelector::classSelected, annotateur, &AnnotatorScene::setClass);
     connect(dock, &ClassSelector::channelSelected, annotateur, &AnnotatorScene::setChannel);
     connect(annotateur, &AnnotatorScene::selectClass, dock, &ClassSelector::selectClass);
@@ -87,7 +97,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(dock, &ClassSelector::moreBrightnessClicked, annotateur, &AnnotatorScene::moreBrightness);
     connect(dock, &ClassSelector::lessBrightnessClicked, annotateur, &AnnotatorScene::lessBrightness);
 
-    connect(annotateur, &AnnotatorScene::modified, this, &MainWindow::onAnnotationModified);
+    //connect(annotateur, &MainWindow::modified, this, &MainWindow::onAnnotationModified);
 
     prePaintGrid();
 
@@ -237,18 +247,7 @@ void MainWindow::PaintGrid(bool m_display_grid)
     update();
 }
 
-void MainWindow::ShowItem()
-{
-    qDebug()<< "hello Fan WU";
-}
-/*
-void MainWindow::PaintAnnotation()
-{
 
-
-
-}
-*/
 void MainWindow::sceneScaleChanged(const QString &scale)
 {
     double newScale = scale.left(scale.indexOf(tr("%"))).toDouble() / 100.0;
@@ -257,3 +256,76 @@ void MainWindow::sceneScaleChanged(const QString &scale)
     annotaview->translate(oldMatrix.dx(), oldMatrix.dy());
     annotaview->scale(newScale, newScale);
 }
+
+
+bool MainWindow::hasImagesLoaded() const
+{
+    return annotateur->m_images.size() == 3 && !annotateur->m_images.front().isNull();
+}
+
+quint8 MainWindow::classAtPosition(const AnnotatorScene::Region& pos) const
+{
+    return qRed(annotateur->m_result->toImage().pixel(pos.x(), pos.y()));
+    ;
+}
+void MainWindow::tagRegion(const AnnotatorScene::Region& region, boost::optional<quint8> classes)
+{
+    int block_width = AnnotatorScene::c_image_resolution.width()/AnnotatorScene::c_annotation_resolution.width();
+    int block_height = AnnotatorScene::c_image_resolution.height()/AnnotatorScene::c_annotation_resolution.height();
+
+    if(!classes) classes = annotateur->m_current_class;
+    if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
+    {
+        annotateur->addRect(region.x()*block_width,region.y()*block_height,block_width,block_height,QPen(QColor(255,0,0)),QBrush((Classes::c_color).at(*classes-1)));
+        emit modified();
+    }
+
+}
+
+
+void MainWindow::processClick(const AnnotatorScene::Region& pos)
+{
+    assert(annotaview->m_current_button_pressed);
+    switch(*annotaview->m_current_button_pressed)
+    {
+    case AnnotatorView::Button::Left:
+        tagRegion(pos);
+        return;
+    case AnnotatorView::Button::Right:
+        tagRegion(pos, 0);
+        return;
+        /*
+    case Button::Wheel:
+        const auto class_id = classAtPosition(*m_current_region);
+        emit selectClass(class_id);
+        return;
+        */
+    }
+}
+
+
+
+void MainWindow::mouseMoveFunction( boost::optional<AnnotatorScene::Region> m_current_region)
+{
+
+    if((m_current_region->x()< AnnotatorScene::c_annotation_resolution.width())&&(m_current_region->x()>0)&& (m_current_region->y()> 0)&& (m_current_region->y()< AnnotatorScene::c_annotation_resolution.height()))
+    {
+
+        emit newCurrentClass(Classes::classes()[ classAtPosition(*m_current_region)].name());
+    }
+
+     if(annotaview->m_current_button_pressed)
+        processClick(*m_current_region);
+    update();
+}
+
+void MainWindow::mousePressFunction(AnnotatorScene::Region mousePressPos)
+{
+    processClick(mousePressPos);
+}
+
+void MainWindow::mouseReleaseFunction(AnnotatorScene::Region mouseReleasePos)
+{
+    processClick(mouseReleasePos);
+}
+

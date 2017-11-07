@@ -11,7 +11,7 @@ public:
 
     const QColor& color() const;
 
-private:
+public:
     Classes(const QString& name_, const QColor& color_);
 
     QString m_name;
