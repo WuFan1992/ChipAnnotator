@@ -77,7 +77,8 @@ MainWindow::MainWindow(QWidget* parent)
     widget->setLayout(layout);
     setCentralWidget(widget);
 
-
+    colorlayout = new ColorLayout;
+    Utils::preColorLayout(annotateur,colorlayout);
 
 
     connect(annotaview,&AnnotatorView::mouseMoveSignal,this,&MainWindow::mouseMoveFunction);
@@ -211,9 +212,6 @@ void MainWindow::prePaintGrid()
     int block_height = AnnotatorScene::c_image_resolution.height()/AnnotatorScene::c_annotation_resolution.height();
 
 
-
-
-
         for (int x = 0; x < AnnotatorScene::c_annotation_resolution.width();x++)
         {
               QGraphicsLineItem *horizon_line = annotateur->addLine((x+1)*block_width,0,(x+1)*block_width,AnnotatorScene::c_image_resolution.height(),QPen(QColor(255,0,0)));
@@ -270,15 +268,34 @@ quint8 MainWindow::classAtPosition(const AnnotatorScene::Region& pos) const
 }
 void MainWindow::tagRegion(const AnnotatorScene::Region& region, boost::optional<quint8> classes)
 {
-    int block_width = AnnotatorScene::c_image_resolution.width()/AnnotatorScene::c_annotation_resolution.width();
-    int block_height = AnnotatorScene::c_image_resolution.height()/AnnotatorScene::c_annotation_resolution.height();
 
-    if(!classes) classes = annotateur->m_current_class;
-    if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
+    if(!classes)
+      {  classes = annotateur->m_current_class;
+     if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
     {
-        annotateur->addRect(region.x()*block_width,region.y()*block_height,block_width,block_height,QPen(QColor(255,0,0)),QBrush((Classes::c_color).at(*classes-1)));
+
+         for (int i= 0 ;i<*classes-1;i++)
+              colorlayout->TotalList.at(i).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
+         for (int j= *classes;j<8;j++)
+             colorlayout->TotalList.at(j).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
+
+        colorlayout->TotalList.at(*classes-1).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(true);
         emit modified();
+
+     }
+
+       }
+    else
+    {
+        if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
+       {
+           for (int k = 0; k<8;k++)
+               colorlayout->TotalList.at(k).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
+           emit modified();
+
+        }
     }
+
 
 }
 

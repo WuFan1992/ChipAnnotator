@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     contrastadjustmentbuttons.cpp \
     contrasteditor.cpp \
     annotatorscene.cpp \
-    annotatorview.cpp
+    annotatorview.cpp \
+    colorlayout.cpp
 
 HEADERS  += mainwindow.hpp \
     imagetagger.hpp \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.hpp \
     contrastadjustmentbuttons.hpp \
     contrasteditor.hpp \
     annotatorscene.h \
-    annotatorview.h
+    annotatorview.h \
+    colorlayout.h
 
 RESOURCES += \
     images.qrc

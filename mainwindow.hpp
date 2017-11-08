@@ -11,6 +11,8 @@
 #include "annotatorscene.h"
 #include "annotatorview.h"
 #include "classes.hpp"
+#include "colorlayout.h"
+#include "utils.hpp"
 
 
 class MainWindow : public QMainWindow
@@ -35,7 +37,11 @@ private:
     QList<QGraphicsLineItem *> horizonLine_List;
     QList<QGraphicsLineItem *> verticalLine_List;
 
+
+    ColorLayout *colorlayout;
+
     void prePaintGrid();
+
 
     QString m_current_image_file_path;
     bool m_modified = false;
