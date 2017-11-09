@@ -12,6 +12,8 @@
 #include <QScrollArea>
 #include <QShortcut>
 #include <QVBoxLayout>
+#include <QAction>
+#include <QDebug>
 
 namespace
 {
@@ -31,13 +33,21 @@ namespace
 ClassSelector::ClassSelector(QWidget* parent)
     : QDockWidget(parent)
 {
+
     auto* w = new QWidget;
     auto* lay = new QVBoxLayout;
     lay->setMargin(0);
 
+
     lay->addWidget(createChannelSelectionWidget());
     auto* contrast_editor = new ContrastAdjustmentButtons;
     lay->addWidget(contrast_editor);
+
+
+    auto *drag_button = new QPushButton("Drag");
+    drag_button->setCheckable(true);
+    connect(drag_button,&QPushButton::clicked,this,&ClassSelector::DragOn);
+    lay->addWidget(drag_button);
 
     auto* scroll_area = new QScrollArea;
     scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -64,8 +74,8 @@ ClassSelector::ClassSelector(QWidget* parent)
             &ClassSelector::moreBrightnessClicked);
     connect(contrast_editor, &ContrastAdjustmentButtons::lessBrightnessClicked, this,
             &ClassSelector::lessBrightnessClicked);
-}
 
+}
 void ClassSelector::selectClass(quint8 class_index)
 {
     m_classes_button_group->buttons()[class_index]->click();
@@ -121,3 +131,6 @@ QWidget* ClassSelector::createChannelSelectionWidget()
     w->setLayout(lay);
     return w;
 }
+
+
+

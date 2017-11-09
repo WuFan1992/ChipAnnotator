@@ -27,11 +27,10 @@ protected:
     virtual void closeEvent(QCloseEvent* event) override;
 
 private:
-    //ImageTagger* m_tagger;
 
     AnnotatorScene *annotateur;
     AnnotatorView *annotaview;
-    QComboBox *sceneScaleCombo;
+   // QComboBox *sceneScaleCombo;
 
 
     QList<QGraphicsLineItem *> horizonLine_List;

@@ -23,6 +23,8 @@ signals:
     void moreBrightnessClicked();
     void lessBrightnessClicked();
 
+    void DragOn();
+
 public slots:
     void selectClass(quint8 class_index);
 
@@ -30,9 +32,12 @@ private:
     QButtonGroup* m_classes_button_group;
     QButtonGroup* m_channels_button_group;
 
+
     QWidget* buildButtonWidget();
 
     void setupShortcuts();
 
     QWidget* createChannelSelectionWidget();
+
+
 };

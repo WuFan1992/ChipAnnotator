@@ -1,12 +1,13 @@
 #include "annotatorview.h"
 #include <QDebug>
+#include <QAbstractScrollArea>
+#include <QScrollBar>
 
 
 
 AnnotatorView::AnnotatorView(QGraphicsScene * scene, QWidget * parent)
    : QGraphicsView(scene, parent)
 {
-
 
 }
 
@@ -42,41 +43,79 @@ void AnnotatorView::wheelEvent(QWheelEvent *event)
 
 void AnnotatorView::mouseMoveEvent(QMouseEvent *evt)
 {
+    if(_pan && dragEnabled)
+    {
+        verticalScrollBar()->setValue(verticalScrollBar()->value() - (evt->y() - _panStartY));
+        horizontalScrollBar()->setValue(horizontalScrollBar()->value() - (evt->x() - _panStartX));
+        _panStartX = evt->x();
+        _panStartY = evt->y();
+
+    }else
+    {
     QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
     m_current_region = screenToRegion(posInScene);
     emit mouseMoveSignal(m_current_region);
-
+     }
     update();
 
 }
 
 void AnnotatorView::mousePressEvent(QMouseEvent* evt)
 {
+   if (dragEnabled)
+    {
+    _pan = true;
+    setCursor(Qt::ClosedHandCursor);
+    _panStartX = evt->x();
+    _panStartY = evt->y();
+   }else
     //if(!hasImagesLoaded()) return;
-    if(evt->button() == Qt::LeftButton)
+   { if(evt->button() == Qt::LeftButton)
         m_current_button_pressed = Button::Left;
     else if(evt->button() == Qt::RightButton)
         m_current_button_pressed = Button::Right;
     else if(evt->button() == Qt::MiddleButton)
         m_current_button_pressed = Button::Wheel;
 
-    QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
-    AnnotatorScene::Region mousePressPos = screenToRegion(posInScene);
-    emit mousePressSignal(mousePressPos);
 
-   // processClick(screenToRegion(evt->pos()));
+   QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
+   AnnotatorScene::Region mousePressPos = screenToRegion(posInScene);
+   emit mousePressSignal(mousePressPos);
+  }
     update();
 }
 
 void AnnotatorView::mouseReleaseEvent(QMouseEvent* evt)
 {
+     setCursor(Qt::ArrowCursor);
+
+     if(dragEnabled)
+         _pan = false;
     //if(!hasImagesLoaded()) return;
-    QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
+
+    else
+    {QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
     AnnotatorScene::Region mouseReleasePos = screenToRegion(posInScene);
-    emit mousePressSignal(mouseReleasePos);
-    //processClick(screenToRegion(evt->pos()));
+    emit mouseReleaseSignal(mouseReleasePos);
     m_current_button_pressed.reset();
+    }
     update();
+}
+
+void AnnotatorView::DragFunction()
+{
+    setDragEnabled(!isDragEnabled());
+}
+
+
+bool AnnotatorView::isDragEnabled() const
+{
+    return dragEnabled;
+}
+
+void AnnotatorView::setDragEnabled(const bool enabled)
+{
+  dragEnabled = enabled;
 }
 
 

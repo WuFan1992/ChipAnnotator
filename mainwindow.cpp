@@ -2,8 +2,6 @@
 
 #include "classselector.hpp"
 
-
-
 #include "annotatorscene.h"
 #include "annotatorview.h"
 
@@ -53,21 +51,20 @@ MainWindow::MainWindow(QWidget* parent)
      layout->addWidget(annotaview);
 
 
-
       auto* b = statusBar();
       connect(this, &MainWindow::newCurrentClass, [b](QString name) { b->showMessage(name); });
 
-
-
+     /*
      sceneScaleCombo = new QComboBox;
      QStringList scales;
      scales <<tr("50%") << tr("75%") << tr("100%") << tr("125%") << tr("150%");
      sceneScaleCombo->addItems(scales);
      sceneScaleCombo->setCurrentIndex(2);
      layout->addWidget(sceneScaleCombo);
+
      connect(sceneScaleCombo, SIGNAL(currentIndexChanged(QString)),
              this, SLOT(sceneScaleChanged(QString)));
-
+      */
 
     auto* dock = new ClassSelector;
     //layout->addWidget(dock);
@@ -79,6 +76,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     colorlayout = new ColorLayout;
     Utils::preColorLayout(annotateur,colorlayout);
+
 
 
     connect(annotaview,&AnnotatorView::mouseMoveSignal,this,&MainWindow::mouseMoveFunction);
@@ -98,12 +96,15 @@ MainWindow::MainWindow(QWidget* parent)
     connect(dock, &ClassSelector::moreBrightnessClicked, annotateur, &AnnotatorScene::moreBrightness);
     connect(dock, &ClassSelector::lessBrightnessClicked, annotateur, &AnnotatorScene::lessBrightness);
 
+    connect(dock,&ClassSelector::DragOn,annotaview,&AnnotatorView::DragFunction);
+
     //connect(annotateur, &MainWindow::modified, this, &MainWindow::onAnnotationModified);
 
     prePaintGrid();
 
 
     connect (annotateur,&AnnotatorScene::gridOn,this,&MainWindow::PaintGrid);
+
 
 }
 
@@ -125,7 +126,7 @@ void MainWindow::setupMenuBar()
 
     auto* display_menu = menuBar()->addMenu(tr("&Display"));
 
-    display_menu->addAction(tr("Toggle grid"), [this]() { annotateur->setGridEnabled(!annotateur->isGridEnabled()); },
+    display_menu->addAction(tr("Toggle grid"), [this]() { annotateur->setGridEnabled(!annotateur->isGridEnabled());},
                             tr("Ctrl+G"));
     display_menu->addAction(tr("Toggle annotations"),
                             [this]() { annotateur->setAnnotationsEnabled(!annotateur->areAnnotationsEnabled()); },
@@ -227,8 +228,6 @@ void MainWindow::prePaintGrid()
              vertical_line->setVisible(false);
 
         }
-
-
 
 
 }
@@ -345,4 +344,5 @@ void MainWindow::mouseReleaseFunction(AnnotatorScene::Region mouseReleasePos)
 {
     processClick(mouseReleasePos);
 }
+
 

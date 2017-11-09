@@ -5221,7 +5221,11 @@ release\annotatorview.obj: annotatorview.cpp annotatorview.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QPixmap \
 		classes.hpp \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QColor \
-		C:\Qt\5.9.1\msvc2015_64\include\QtCore\QDebug
+		C:\Qt\5.9.1\msvc2015_64\include\QtCore\QDebug \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QAbstractScrollArea \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\QScrollBar \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qscrollbar.h \
+		C:\Qt\5.9.1\msvc2015_64\include\QtWidgets\qabstractslider.h
 
 release\colorlayout.obj: colorlayout.cpp colorlayout.h \
 		C:\Qt\5.9.1\msvc2015_64\include\QtGui\QList \

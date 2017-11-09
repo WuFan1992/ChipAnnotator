@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ClassSelector_t {
-    QByteArrayData data[13];
-    char stringdata0[192];
+    QByteArrayData data[14];
+    char stringdata0[199];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,14 +43,15 @@ QT_MOC_LITERAL(8, 96, 19), // "moreContrastClicked"
 QT_MOC_LITERAL(9, 116, 19), // "lessContrastClicked"
 QT_MOC_LITERAL(10, 136, 21), // "moreBrightnessClicked"
 QT_MOC_LITERAL(11, 158, 21), // "lessBrightnessClicked"
-QT_MOC_LITERAL(12, 180, 11) // "selectClass"
+QT_MOC_LITERAL(12, 180, 6), // "DragOn"
+QT_MOC_LITERAL(13, 187, 11) // "selectClass"
 
     },
     "ClassSelector\0classSelected\0\0class_index\0"
     "channelSelected\0channel_index\0"
     "resetClicked\0autoClicked\0moreContrastClicked\0"
     "lessContrastClicked\0moreBrightnessClicked\0"
-    "lessBrightnessClicked\0selectClass"
+    "lessBrightnessClicked\0DragOn\0selectClass"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,29 +61,31 @@ static const uint qt_meta_data_ClassSelector[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       8,       // signalCount
+       9,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
-       4,    1,   62,    2, 0x06 /* Public */,
-       6,    0,   65,    2, 0x06 /* Public */,
-       7,    0,   66,    2, 0x06 /* Public */,
-       8,    0,   67,    2, 0x06 /* Public */,
-       9,    0,   68,    2, 0x06 /* Public */,
-      10,    0,   69,    2, 0x06 /* Public */,
-      11,    0,   70,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
+       4,    1,   67,    2, 0x06 /* Public */,
+       6,    0,   70,    2, 0x06 /* Public */,
+       7,    0,   71,    2, 0x06 /* Public */,
+       8,    0,   72,    2, 0x06 /* Public */,
+       9,    0,   73,    2, 0x06 /* Public */,
+      10,    0,   74,    2, 0x06 /* Public */,
+      11,    0,   75,    2, 0x06 /* Public */,
+      12,    0,   76,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      12,    1,   71,    2, 0x0a /* Public */,
+      13,    1,   77,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::UChar,    3,
     QMetaType::Void, QMetaType::UChar,    5,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -110,7 +113,8 @@ void ClassSelector::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 5: _t->lessContrastClicked(); break;
         case 6: _t->moreBrightnessClicked(); break;
         case 7: _t->lessBrightnessClicked(); break;
-        case 8: _t->selectClass((*reinterpret_cast< quint8(*)>(_a[1]))); break;
+        case 8: _t->DragOn(); break;
+        case 9: _t->selectClass((*reinterpret_cast< quint8(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -172,6 +176,13 @@ void ClassSelector::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
                 return;
             }
         }
+        {
+            typedef void (ClassSelector::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ClassSelector::DragOn)) {
+                *result = 8;
+                return;
+            }
+        }
     }
 }
 
@@ -200,13 +211,13 @@ int ClassSelector::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }
@@ -259,6 +270,12 @@ void ClassSelector::moreBrightnessClicked()
 void ClassSelector::lessBrightnessClicked()
 {
     QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
+}
+
+// SIGNAL 8
+void ClassSelector::DragOn()
+{
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

@@ -8,6 +8,7 @@
 #include "classes.hpp"
 
 
+
 class QGraphicsScene;
 
 class AnnotatorView : public QGraphicsView
@@ -25,6 +26,10 @@ public:
         Wheel
     };
 
+    bool _pan;
+    int _panStartX;
+    int _panStartY;
+
 protected:
     virtual void wheelEvent(QWheelEvent* event);
     virtual void mouseMoveEvent(QMouseEvent *event);
@@ -36,6 +41,9 @@ protected:
 public:
    boost::optional<AnnotatorScene::Region> m_current_region;
    boost::optional<Button> m_current_button_pressed;
+   bool dragEnabled = false;
+
+
 
 
 signals:
@@ -43,7 +51,11 @@ signals:
    void mousePressSignal(AnnotatorScene::Region mousePressPos);
    void mouseReleaseSignal(AnnotatorScene::Region mouseReleasePos);
 
+public:
+   void DragFunction();
+   bool isDragEnabled() const;
 
+   void setDragEnabled(const bool enabled) ;
 
 
 
