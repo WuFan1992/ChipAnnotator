@@ -153,3 +153,5 @@ void ContrastAdjustmentButtons::setMinimalSize()
         widget->hide();
     }
 }
+
+

@@ -34,3 +34,5 @@ signals:
     void moreBrightnessClicked();
     void lessBrightnessClicked();
 };
+
+

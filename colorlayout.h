@@ -15,6 +15,7 @@ class ColorLayout
 public:
     ColorLayout();
 
+    QList<QGraphicsItem *> RAS;
     QList<QGraphicsItem *> Bulle;
     QList<QGraphicsItem *> Tassement;
     QList<QGraphicsItem *> Coalescene;
@@ -23,6 +24,17 @@ public:
     QList<QGraphicsItem *> Inhomogenite;
     QList<QGraphicsItem *> Mouillage;
     QList<QGraphicsItem *> GoutteDemouille ;
+    QList<QGraphicsItem *> RegionSombre;
+    QList<QGraphicsItem *> GoutteColle;
+    QList<QGraphicsItem *> Muraille;
+    QList<QGraphicsItem *> TraceTs;
+    QList<QGraphicsItem *> InjecteurBouche;
+    QList<QGraphicsItem *> Precipite;
+    QList<QGraphicsItem *> Dedoublement;
+    QList<QGraphicsItem *> OutOfFocus;
+    QList<QGraphicsItem *> Autres ;
+    QList<QGraphicsItem *> ArtefactGeneral ;
+
 
     QList<QList<QGraphicsItem *>> TotalList;
 

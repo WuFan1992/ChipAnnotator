@@ -20,13 +20,14 @@ AnnotatorScene::Region::Region(int x, int y)
 AnnotatorScene::AnnotatorScene()
     : QGraphicsScene()
 {
-    m_result = new QPixmap;
+    m_result = new QPixmap(c_annotation_resolution.width(),c_annotation_resolution.height());
     m_result->scaled(c_annotation_resolution);
     m_result->fill(QColor(0,0,0));
 
+
 }
 
-void AnnotatorScene::display(const ImageStack_t &images, const QString &annotation)
+void AnnotatorScene::displayImage(const ImageStack_t &images)
 {
     for(const auto& pixmap : images)
         if(pixmap.size() != c_image_resolution)
@@ -40,6 +41,8 @@ void AnnotatorScene::display(const ImageStack_t &images, const QString &annotati
 
     updateBackgroundImage();
 
+/*
+
     if(annotation.isEmpty())
         m_result->fill(QColor(0,0,0));
     else
@@ -47,7 +50,7 @@ void AnnotatorScene::display(const ImageStack_t &images, const QString &annotati
         m_result->load(annotation);
         //*m_result = m_result->copy(QRect(QPoint(0, 0), c_annotation_resolution));
     }
-
+*/
 }
 
 bool AnnotatorScene::isGridEnabled() const
@@ -70,6 +73,7 @@ bool AnnotatorScene::areAnnotationsEnabled() const
 
 void AnnotatorScene::setAnnotationsEnabled(const bool enabled)
 {
+    emit annotationSignal(m_display_annotations);
     m_display_annotations = enabled;
     update();
 }
@@ -149,8 +153,6 @@ void AnnotatorScene::updateBackgroundImage()
     const auto& pix = m_images[m_current_channel];
     if(!pix.isNull())
     {
-        //const auto img = pix.scaled(size(), Qt::KeepAspectRatio).toImage();
-
 
        const auto img = pix.scaled(pix.size(),Qt::KeepAspectRatio).toImage();
         const auto processed_image
@@ -163,6 +165,7 @@ void AnnotatorScene::updateBackgroundImage()
     }
     update();
 }
+
 
 
 

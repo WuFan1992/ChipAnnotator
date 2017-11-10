@@ -89,11 +89,24 @@ public slots:
 
     void mouseReleaseFunction(AnnotatorScene::Region mouseReleasePos);
 
+    void leaveViewFunction();
+
     quint8 classAtPosition(const AnnotatorScene::Region& pos) const;
 
      void processClick(const AnnotatorScene::Region& pos);
 
      void tagRegion(const AnnotatorScene::Region& region, boost::optional<quint8> classes = {});
+
+     void showRectType(boost::optional<AnnotatorScene::Region> m_current_region);
+
+     void showAnnotation(bool m_display_annotation);
+
+     void displayAnnotation(QString &annoation);
+
+     void displayGrid();
+
+     void Reset();
+
 
 
    // void PaintAnnotation(bool m_display_annotations);

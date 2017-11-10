@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[28];
-    char stringdata0[406];
+    QByteArrayData data[37];
+    char stringdata0[528];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,13 +52,22 @@ QT_MOC_LITERAL(17, 250, 22), // "AnnotatorScene::Region"
 QT_MOC_LITERAL(18, 273, 13), // "mousePressPos"
 QT_MOC_LITERAL(19, 287, 20), // "mouseReleaseFunction"
 QT_MOC_LITERAL(20, 308, 15), // "mouseReleasePos"
-QT_MOC_LITERAL(21, 324, 15), // "classAtPosition"
-QT_MOC_LITERAL(22, 340, 3), // "pos"
-QT_MOC_LITERAL(23, 344, 12), // "processClick"
-QT_MOC_LITERAL(24, 357, 9), // "tagRegion"
-QT_MOC_LITERAL(25, 367, 6), // "region"
-QT_MOC_LITERAL(26, 374, 23), // "boost::optional<quint8>"
-QT_MOC_LITERAL(27, 398, 7) // "classes"
+QT_MOC_LITERAL(21, 324, 17), // "leaveViewFunction"
+QT_MOC_LITERAL(22, 342, 15), // "classAtPosition"
+QT_MOC_LITERAL(23, 358, 3), // "pos"
+QT_MOC_LITERAL(24, 362, 12), // "processClick"
+QT_MOC_LITERAL(25, 375, 9), // "tagRegion"
+QT_MOC_LITERAL(26, 385, 6), // "region"
+QT_MOC_LITERAL(27, 392, 23), // "boost::optional<quint8>"
+QT_MOC_LITERAL(28, 416, 7), // "classes"
+QT_MOC_LITERAL(29, 424, 12), // "showRectType"
+QT_MOC_LITERAL(30, 437, 14), // "showAnnotation"
+QT_MOC_LITERAL(31, 452, 20), // "m_display_annotation"
+QT_MOC_LITERAL(32, 473, 17), // "displayAnnotation"
+QT_MOC_LITERAL(33, 491, 8), // "QString&"
+QT_MOC_LITERAL(34, 500, 9), // "annoation"
+QT_MOC_LITERAL(35, 510, 11), // "displayGrid"
+QT_MOC_LITERAL(36, 522, 5) // "Reset"
 
     },
     "MainWindow\0newCurrentClass\0\0name\0"
@@ -70,9 +79,12 @@ QT_MOC_LITERAL(27, 398, 7) // "classes"
     "m_current_region\0mousePressFunction\0"
     "AnnotatorScene::Region\0mousePressPos\0"
     "mouseReleaseFunction\0mouseReleasePos\0"
-    "classAtPosition\0pos\0processClick\0"
-    "tagRegion\0region\0boost::optional<quint8>\0"
-    "classes"
+    "leaveViewFunction\0classAtPosition\0pos\0"
+    "processClick\0tagRegion\0region\0"
+    "boost::optional<quint8>\0classes\0"
+    "showRectType\0showAnnotation\0"
+    "m_display_annotation\0displayAnnotation\0"
+    "QString&\0annoation\0displayGrid\0Reset"
 };
 #undef QT_MOC_LITERAL
 
@@ -82,7 +94,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -90,23 +102,29 @@ static const uint qt_meta_data_MainWindow[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   89,    2, 0x06 /* Public */,
-       4,    0,   92,    2, 0x06 /* Public */,
+       1,    1,  119,    2, 0x06 /* Public */,
+       4,    0,  122,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   93,    2, 0x0a /* Public */,
-       6,    0,   94,    2, 0x0a /* Public */,
-       7,    0,   95,    2, 0x0a /* Public */,
-       8,    1,   96,    2, 0x0a /* Public */,
-      10,    1,   99,    2, 0x0a /* Public */,
-      12,    0,  102,    2, 0x0a /* Public */,
-      13,    1,  103,    2, 0x0a /* Public */,
-      16,    1,  106,    2, 0x0a /* Public */,
-      19,    1,  109,    2, 0x0a /* Public */,
-      21,    1,  112,    2, 0x0a /* Public */,
-      23,    1,  115,    2, 0x0a /* Public */,
-      24,    2,  118,    2, 0x0a /* Public */,
-      24,    1,  123,    2, 0x2a /* Public | MethodCloned */,
+       5,    0,  123,    2, 0x0a /* Public */,
+       6,    0,  124,    2, 0x0a /* Public */,
+       7,    0,  125,    2, 0x0a /* Public */,
+       8,    1,  126,    2, 0x0a /* Public */,
+      10,    1,  129,    2, 0x0a /* Public */,
+      12,    0,  132,    2, 0x0a /* Public */,
+      13,    1,  133,    2, 0x0a /* Public */,
+      16,    1,  136,    2, 0x0a /* Public */,
+      19,    1,  139,    2, 0x0a /* Public */,
+      21,    0,  142,    2, 0x0a /* Public */,
+      22,    1,  143,    2, 0x0a /* Public */,
+      24,    1,  146,    2, 0x0a /* Public */,
+      25,    2,  149,    2, 0x0a /* Public */,
+      25,    1,  154,    2, 0x2a /* Public | MethodCloned */,
+      29,    1,  157,    2, 0x0a /* Public */,
+      30,    1,  160,    2, 0x0a /* Public */,
+      32,    1,  163,    2, 0x0a /* Public */,
+      35,    0,  166,    2, 0x0a /* Public */,
+      36,    0,  167,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -122,10 +140,16 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, 0x80000000 | 14,   15,
     QMetaType::Void, 0x80000000 | 17,   18,
     QMetaType::Void, 0x80000000 | 17,   20,
-    QMetaType::UChar, 0x80000000 | 17,   22,
-    QMetaType::Void, 0x80000000 | 17,   22,
-    QMetaType::Void, 0x80000000 | 17, 0x80000000 | 26,   25,   27,
-    QMetaType::Void, 0x80000000 | 17,   25,
+    QMetaType::Void,
+    QMetaType::UChar, 0x80000000 | 17,   23,
+    QMetaType::Void, 0x80000000 | 17,   23,
+    QMetaType::Void, 0x80000000 | 17, 0x80000000 | 27,   26,   28,
+    QMetaType::Void, 0x80000000 | 17,   26,
+    QMetaType::Void, 0x80000000 | 14,   15,
+    QMetaType::Void, QMetaType::Bool,   31,
+    QMetaType::Void, 0x80000000 | 33,   34,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -148,11 +172,17 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->mouseMoveFunction((*reinterpret_cast< boost::optional<AnnotatorScene::Region>(*)>(_a[1]))); break;
         case 9: _t->mousePressFunction((*reinterpret_cast< AnnotatorScene::Region(*)>(_a[1]))); break;
         case 10: _t->mouseReleaseFunction((*reinterpret_cast< AnnotatorScene::Region(*)>(_a[1]))); break;
-        case 11: { quint8 _r = _t->classAtPosition((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1])));
+        case 11: _t->leaveViewFunction(); break;
+        case 12: { quint8 _r = _t->classAtPosition((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< quint8*>(_a[0]) = std::move(_r); }  break;
-        case 12: _t->processClick((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1]))); break;
-        case 13: _t->tagRegion((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1])),(*reinterpret_cast< boost::optional<quint8>(*)>(_a[2]))); break;
-        case 14: _t->tagRegion((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1]))); break;
+        case 13: _t->processClick((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1]))); break;
+        case 14: _t->tagRegion((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1])),(*reinterpret_cast< boost::optional<quint8>(*)>(_a[2]))); break;
+        case 15: _t->tagRegion((*reinterpret_cast< const AnnotatorScene::Region(*)>(_a[1]))); break;
+        case 16: _t->showRectType((*reinterpret_cast< boost::optional<AnnotatorScene::Region>(*)>(_a[1]))); break;
+        case 17: _t->showAnnotation((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: _t->displayAnnotation((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 19: _t->displayGrid(); break;
+        case 20: _t->Reset(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -200,13 +230,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 21)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 21;
     }
     return _id;
 }

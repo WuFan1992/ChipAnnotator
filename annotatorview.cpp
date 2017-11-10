@@ -41,6 +41,7 @@ void AnnotatorView::wheelEvent(QWheelEvent *event)
 
 }
 
+
 void AnnotatorView::mouseMoveEvent(QMouseEvent *evt)
 {
     if(_pan && dragEnabled)
@@ -52,10 +53,11 @@ void AnnotatorView::mouseMoveEvent(QMouseEvent *evt)
 
     }else
     {
+    setMouseTracking(true);
     QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
     m_current_region = screenToRegion(posInScene);
     emit mouseMoveSignal(m_current_region);
-     }
+    }
     update();
 
 }
@@ -92,7 +94,6 @@ void AnnotatorView::mouseReleaseEvent(QMouseEvent* evt)
      if(dragEnabled)
          _pan = false;
     //if(!hasImagesLoaded()) return;
-
     else
     {QPointF posInScene =QGraphicsView::mapToScene(evt->pos());
     AnnotatorScene::Region mouseReleasePos = screenToRegion(posInScene);
@@ -101,6 +102,13 @@ void AnnotatorView::mouseReleaseEvent(QMouseEvent* evt)
     }
     update();
 }
+
+
+void AnnotatorView::leaveEvent(QEvent *evt)
+{
+    emit leaveView();
+}
+
 
 void AnnotatorView::DragFunction()
 {

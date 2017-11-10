@@ -31,7 +31,8 @@ public:
 
     static const QSize c_image_resolution;
     static const QSize c_annotation_resolution;
-    void display(const ImageStack_t& images, const QString& annotation = "");
+    void displayImage(const ImageStack_t& images
+                 );
 
 public:
     void resetContrastBrightness();
@@ -70,6 +71,8 @@ signals:
 
     void AnnotationOn(bool enabled);
 
+    void annotationSignal(bool m_display_annotations);
+
 
 
 public:
@@ -81,8 +84,6 @@ public:
     QPixmap *m_result;
 
     ImageStack_t m_images;
-
-
 
     bool m_display_grid = true;
     bool m_display_annotations = true;

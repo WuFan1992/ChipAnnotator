@@ -20,3 +20,5 @@ public:
     static QList<Classes> s_classes;
     static const QList<QColor> c_color;
 };
+
+

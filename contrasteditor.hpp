@@ -29,3 +29,5 @@ public:
 
     static std::pair<int, int> findOnePercentLimits(const Histogram& histogram);
 };
+
+

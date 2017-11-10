@@ -104,3 +104,5 @@ std::pair<int, int> ContrastEditor::findOnePercentLimits(const Histogram& histog
     int i2 = std::distance(histogram.begin(), i2_it);
     return std::pair<int, int>(i1, i2);
 }
+
+

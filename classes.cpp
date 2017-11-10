@@ -54,3 +54,4 @@ Classes::Classes(const QString& name_, const QColor& color_)
     , m_color(color_)
 {
 }
+

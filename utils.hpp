@@ -14,3 +14,4 @@ namespace Utils
     void drawRectForClass(AnnotatorScene *annotatorscene,const Classes& c, const QRect& rect);
     void preColorLayout(AnnotatorScene *annotateur,ColorLayout *colorlayout);
 }
+
