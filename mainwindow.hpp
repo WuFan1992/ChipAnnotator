@@ -30,7 +30,6 @@ private:
 
     AnnotatorScene *annotateur;
     AnnotatorView *annotaview;
-   // QComboBox *sceneScaleCombo;
 
 
     QList<QGraphicsLineItem *> horizonLine_List;

@@ -35,7 +35,6 @@ public:
     QList<QGraphicsItem *> Autres ;
     QList<QGraphicsItem *> ArtefactGeneral ;
 
-
     QList<QList<QGraphicsItem *>> TotalList;
 
 
