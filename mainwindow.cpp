@@ -1,17 +1,16 @@
 #include "mainwindow.hpp"
-
-#include "classselector.hpp"
-
-#include "annotatorscene.h"
-#include "annotatorview.h"
+#include "chipannotator.h"
+#include "menuaction.h"
 
 #include <QCloseEvent>
+#include <QDir>
+#include <QFile>
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QStatusBar>
 #include <QHBoxLayout>
 #include <QMouseEvent>
+#include <QWidget>
 
 #include <QPointF>
 
@@ -22,91 +21,24 @@
 #define TOTAL_TYPE 18
 
 
-namespace
-{
-
-    auto loadImageStack(const QStringList& files)
-    {
-        std::array<QPixmap, 3> res;
-        std::copy(files.begin(), files.end(), res.begin());
-        return res;
-    }
-}
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
 
-    setupMenuBar();
+   chipannotator = new ChipAnnotator;
+   setupMenuBar();
+   menuaction = new MenuAction;
+   setupClassSelector();
 
-    annotateur = new AnnotatorScene;
+   QWidget *widget = new QWidget;
+   widget->setLayout(chipannotator->layout);
+   setCentralWidget(widget);
 
-    annotateur->setSceneRect(QRectF(0, 0, 800, 564));
-
-     QHBoxLayout *layout = new QHBoxLayout;
-     annotaview = new AnnotatorView(annotateur);
-     annotaview->fitInView(0,0,800,564);
-     annotaview->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-     layout->addWidget(annotaview);
-
-
-      auto* b = statusBar();
-      connect(this, &MainWindow::newCurrentClass, [b](QString name) { b->showMessage(name); });
-
-    auto* dock = new ClassSelector;
-    //layout->addWidget(dock);
-    addDockWidget(Qt::RightDockWidgetArea, dock);
-
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
-    setCentralWidget(widget);
-
-    colorlayout = new ColorLayout;
-    Utils::preColorLayout(annotateur,colorlayout);
-
-
-
-    connect(annotaview,&AnnotatorView::mouseMoveSignal,this,&MainWindow::mouseMoveFunction);
-    connect(annotaview,&AnnotatorView::mousePressSignal,this,&MainWindow::mousePressFunction);
-    connect(annotaview,&AnnotatorView::mouseReleaseSignal,this,&MainWindow::mouseReleaseFunction);
-
-    connect(annotaview,&AnnotatorView::leaveView,this,&MainWindow::leaveViewFunction);
-
-    connect(dock, &ClassSelector::classSelected, annotateur, &AnnotatorScene::setClass);
-    connect(dock, &ClassSelector::channelSelected, annotateur, &AnnotatorScene::setChannel);
-    connect(annotateur, &AnnotatorScene::selectClass, dock, &ClassSelector::selectClass);
-
-
-    connect(dock, &ClassSelector::resetClicked, annotateur, &AnnotatorScene::resetContrastBrightness);
-    connect(dock, &ClassSelector::autoClicked, annotateur, &AnnotatorScene::autoContrastBrightness);
-    connect(dock, &ClassSelector::moreContrastClicked, annotateur, &AnnotatorScene::moreContrast);
-    connect(dock, &ClassSelector::lessContrastClicked, annotateur, &AnnotatorScene::lessContrast);
-    connect(dock, &ClassSelector::moreBrightnessClicked, annotateur, &AnnotatorScene::moreBrightness);
-    connect(dock, &ClassSelector::lessBrightnessClicked, annotateur, &AnnotatorScene::lessBrightness);
-
-    connect(dock,&ClassSelector::DragOn,annotaview,&AnnotatorView::DragFunction);
-
-    //connect(annotateur, &MainWindow::modified, this, &MainWindow::onAnnotationModified);
-
-    prePaintGrid();
-
-
-    connect (annotateur,&AnnotatorScene::gridOn,this,&MainWindow::PaintGrid);
-    connect(annotateur,&AnnotatorScene::annotationSignal,this,&MainWindow::showAnnotation);
-
-
+   connect(menuaction,&MenuAction::displayImageSignal,chipannotator->annotateur,&AnnotatorScene::displayImage);
 
 }
 
-void MainWindow::closeEvent(QCloseEvent* event)
-{
-    const auto res = askToSaveAndProceed("close");
-    if(res)
-        event->accept();
-    else
-        event->ignore();
-}
 
 void MainWindow::setupMenuBar()
 {
@@ -117,25 +49,49 @@ void MainWindow::setupMenuBar()
 
     auto* display_menu = menuBar()->addMenu(tr("&Display"));
 
-    display_menu->addAction(tr("Toggle grid"), [this]() { annotateur->setGridEnabled(!annotateur->isGridEnabled());},
+    display_menu->addAction(tr("Toggle grid"), [this]() { chipannotator->annotateur->setGridEnabled(!chipannotator->annotateur->isGridEnabled());},
                             tr("Ctrl+G"));
     display_menu->addAction(tr("Toggle annotations"),
-                            [this]() { annotateur->setAnnotationsEnabled(!annotateur->areAnnotationsEnabled()); },
+                            [this]() { chipannotator->annotateur->setAnnotationsEnabled(!chipannotator->annotateur->areAnnotationsEnabled()); },
                             tr("Ctrl+D"));
 }
 
+void MainWindow::setupClassSelector()
+{
+    auto* dock = new ClassSelector;
+    addDockWidget(Qt::RightDockWidgetArea, dock);
+
+    connect(dock, &ClassSelector::classSelected, chipannotator->annotateur, &AnnotatorScene::setClass);
+    connect(dock, &ClassSelector::channelSelected, chipannotator->annotateur, &AnnotatorScene::setChannel);
+    connect(chipannotator->annotateur, &AnnotatorScene::selectClass, dock, &ClassSelector::selectClass);
+
+
+    connect(dock, &ClassSelector::resetClicked, chipannotator->annotateur, &AnnotatorScene::resetContrastBrightness);
+    connect(dock, &ClassSelector::autoClicked, chipannotator->annotateur, &AnnotatorScene::autoContrastBrightness);
+    connect(dock, &ClassSelector::moreContrastClicked, chipannotator->annotateur, &AnnotatorScene::moreContrast);
+    connect(dock, &ClassSelector::lessContrastClicked, chipannotator->annotateur, &AnnotatorScene::lessContrast);
+    connect(dock, &ClassSelector::moreBrightnessClicked, chipannotator->annotateur, &AnnotatorScene::moreBrightness);
+    connect(dock, &ClassSelector::lessBrightnessClicked, chipannotator->annotateur, &AnnotatorScene::lessBrightness);
+
+    connect(dock,&ClassSelector::DragOn,chipannotator->annotaview,&AnnotatorView::DragFunction);
+
+}
+
+/*
 bool MainWindow::isFileNameValid(const QString& filename)
 {
     return filename.endsWith("_1.tif") || filename.endsWith("_2.tif") || filename.endsWith("_3.tif");
 }
-
+*/
+/*
 QStringList MainWindow::createAllFileNames(const QString& filename)
 {
     assert(isFileNameValid(filename));
     const auto root = filename.left(filename.size() - 5);
     return QStringList() << root + "1.tif" << root + "2.tif" << root + "3.tif";
 }
-
+*/
+/*
 bool MainWindow::askToSaveAndProceed(const QString& action)
 {
     if(m_modified)
@@ -149,15 +105,16 @@ bool MainWindow::askToSaveAndProceed(const QString& action)
     }
     return true;
 }
+*/
 
-
+/*
 void MainWindow::onOpenClicked()
 {
     if(!askToSaveAndProceed("open a new image")) return;
 
     auto file = QFileDialog::getOpenFileName(this, tr("Select an image to open"), {}, "*.tif");
     if(!isFileNameValid(file)) return;
-    Reset();
+    chipannotator->Reset();
     const auto files = createAllFileNames(file);
     for(const auto& f : files)
         if(!QFileInfo(f).exists()) return;
@@ -168,9 +125,9 @@ void MainWindow::onOpenClicked()
         annotation += ".dat";
         m_current_image_file_path = files.front();
 
-       annotateur->displayImage(loadImageStack(files));
+       chipannotator->annotateur->displayImage(loadImageStack(files));
        displayAnnotation((QFileInfo::exists(annotation) ? annotation : ""));
-       displayGrid();
+       chipannotator->displayGrid();
 
         setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
         m_modified = false;
@@ -181,44 +138,17 @@ void MainWindow::onOpenClicked()
         QMessageBox::critical(this, tr("Unable to open image"), ex.what());
     }
 }
-
+*/
 
 void MainWindow::onSaveClicked()
 {
-    int RectIndex;
+
 
     if(m_current_image_file_path.isEmpty()) return;
     auto output_file_path = m_current_image_file_path;
     output_file_path.chop(4);
     output_file_path += ".dat";
-
-    QFile file(output_file_path);
-    file.open(QIODevice::WriteOnly);
-    QDataStream out(&file);
-
-    for(int y=0;y<AnnotatorScene::c_annotation_resolution.height();y++)
-    {
-        for(int x=0;x<AnnotatorScene::c_annotation_resolution.width();x++)
-        {
-            RectIndex =0;
-            for (int i = 0; i<TOTAL_TYPE; i++)
-            {
-                bool ifvisible=colorlayout->TotalList.at(i).at(y*annotateur->c_annotation_resolution.width()+x)->isVisible();
-                if(ifvisible)
-                {RectIndex = i+1;
-                }
-             }
-            out <<QString("x");
-            out<<(qint32)x;
-            out<<QString("y");
-            out<<(qint32)y;
-            out<<QString("RectType");
-            out<<RectIndex;
-        }
-
-    }
-
-    file.close();
+    Utils::saveAnnotation(chipannotator,output_file_path);
     setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
     m_modified = false;
 
@@ -233,230 +163,6 @@ void MainWindow::onAnnotationModified()
     setWindowTitle(QFileInfo(m_current_image_file_path).fileName() + "*");
 }
 
-void MainWindow::prePaintGrid()
-{
-    int block_width = AnnotatorScene::c_image_resolution.width()/AnnotatorScene::c_annotation_resolution.width();
-    int block_height = AnnotatorScene::c_image_resolution.height()/AnnotatorScene::c_annotation_resolution.height();
-
-
-        for (int x = 0; x < AnnotatorScene::c_annotation_resolution.width();x++)
-        {
-              QGraphicsLineItem *horizon_line = annotateur->addLine((x+1)*block_width,0,(x+1)*block_width,AnnotatorScene::c_image_resolution.height(),QPen(QColor(255,0,0)));
-              horizonLine_List.append(horizon_line);
-              horizon_line->setVisible(false);
-
-        }
-
-        for (int y = 0; y < AnnotatorScene::c_annotation_resolution.height();y++)
-        {
-             QGraphicsLineItem *vertical_line = annotateur->addLine(0,(y+1)*block_height,AnnotatorScene::c_image_resolution.width(),(y+1)*block_height,QPen(QColor(255,0,0)));
-             verticalLine_List.append(vertical_line);
-             vertical_line->setVisible(false);
-
-        }
-
-
-}
-
-void MainWindow::PaintGrid(bool m_display_grid)
-{
-
-         for (int x = 0; x < AnnotatorScene::c_annotation_resolution.width();x++)
-             horizonLine_List.at(x)->setVisible(!m_display_grid);
-         for (int y = 0; y < AnnotatorScene::c_annotation_resolution.height();y++)
-             verticalLine_List.at(y)->setVisible(!m_display_grid);
-
-    update();
-}
-
-
-void MainWindow::sceneScaleChanged(const QString &scale)
-{
-    double newScale = scale.left(scale.indexOf(tr("%"))).toDouble() / 100.0;
-    QMatrix oldMatrix = annotaview->matrix();
-    annotaview->resetMatrix();
-    annotaview->translate(oldMatrix.dx(), oldMatrix.dy());
-    annotaview->scale(newScale, newScale);
-}
-
-
-bool MainWindow::hasImagesLoaded() const
-{
-    return annotateur->m_images.size() == 3 && !annotateur->m_images.front().isNull();
-}
-
-quint8 MainWindow::classAtPosition(const AnnotatorScene::Region& pos) const
-{
-    return qRed(annotateur->m_result->toImage().pixel(pos.x(), pos.y()));
-    ;
-}
-void MainWindow::tagRegion(const AnnotatorScene::Region& region, boost::optional<quint8> classes)
-{
-    if(!classes)
-    {  classes = annotateur->m_current_class;
-       if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
-       {
-         if (*classes !=0)
-         {for (int i= 0 ;i<*classes-1;i++)
-              colorlayout->TotalList.at(i).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
-         for (int j= *classes;j<TOTAL_TYPE;j++)
-             colorlayout->TotalList.at(j).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
-
-        colorlayout->TotalList.at(*classes-1).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(true);
-        emit modified();
-         }
-       }
-
-
-    }
-    else
-    {
-        if(region.x() >= 0 && region.x() < annotateur->m_result->width() && region.y() >= 0 && region.y() < annotateur->m_result->height())
-       {
-           for (int k = 0; k<TOTAL_TYPE;k++)
-               colorlayout->TotalList.at(k).at(region.y()* annotateur->m_result->width()+region.x())->setVisible(false);
-           emit modified();
-
-        }
-    }
-
-}
-
-
-void MainWindow::processClick(const AnnotatorScene::Region& pos)
-{
-
-    colorlayout->RAS.at(annotaview->m_previous_region->y()* annotateur->m_result->width()+annotaview->m_previous_region->x())->setVisible(false);
-    assert(annotaview->m_current_button_pressed);
-    switch(*annotaview->m_current_button_pressed)
-    {
-    case AnnotatorView::Button::Left:
-        tagRegion(pos);
-        return;
-    case AnnotatorView::Button::Right:
-        tagRegion(pos, 0);
-        return;
-        /*
-    case Button::Wheel:
-        const auto class_id = classAtPosition(*m_current_region);
-        emit selectClass(class_id);
-        return;
-        */
-    }
-}
-
-
-
-void MainWindow::mouseMoveFunction( boost::optional<AnnotatorScene::Region> m_current_region)
-{
-
-    if (annotateur->m_current_class ==0)
-    {
-        if((m_current_region->x()< AnnotatorScene::c_annotation_resolution.width())&&(m_current_region->x()>0)&& (m_current_region->y()> 0)&& (m_current_region->y()< AnnotatorScene::c_annotation_resolution.height()))
-        {
-            colorlayout->RAS.at(annotaview->m_previous_region->y()* annotateur->m_result->width()+annotaview->m_previous_region->x())->setVisible(false);
-            colorlayout->RAS.at(m_current_region->y()* annotateur->m_result->width()+m_current_region->x())->setVisible(true);
-            showRectType(m_current_region);
-            annotaview->m_previous_region = m_current_region;
-        }
-    }
-
-     if(annotaview->m_current_button_pressed)
-        processClick(*m_current_region);
-    update();
-}
-
-void MainWindow::mousePressFunction(AnnotatorScene::Region mousePressPos)
-{
-    processClick(mousePressPos);
-}
-
-void MainWindow::mouseReleaseFunction(AnnotatorScene::Region mouseReleasePos)
-{
-    processClick(mouseReleasePos);
-}
-
-void MainWindow::leaveViewFunction()
-{
-     colorlayout->RAS.at(annotaview->m_previous_region->y()* annotateur->m_result->width()+annotaview->m_previous_region->x())->setVisible(false);
-}
-
-void MainWindow::showRectType(boost::optional<AnnotatorScene::Region> m_current_region)
-{
-    auto* b = statusBar();
-    for (int k = 0;  k<TOTAL_TYPE;k++)
-    {bool visible =colorlayout->TotalList.at(k).at(m_current_region->y()* annotateur->m_result->width()+m_current_region->x())->isVisible();
-         if (visible)
-         {
-             b->showMessage(Classes::s_classes.at(k+1).name());
-             return;
-         }
-    }
-    b->showMessage("RAS");
-}
-
-void MainWindow::showAnnotation(bool m_display_annotation)
-{
-    int RectIndex;
-    if(m_display_annotation)
-    {
-    QFile file("temp.dat");
-    file.open(QIODevice::WriteOnly);
-    QDataStream out(&file);
-
-    for(int y=0;y<AnnotatorScene::c_annotation_resolution.height();y++)
-    {
-        for(int x=0;x<AnnotatorScene::c_annotation_resolution.width();x++)
-        {
-            RectIndex =0;
-            for (int i = 0; i<TOTAL_TYPE; i++)
-            {
-                bool ifvisible=colorlayout->TotalList.at(i).at(y*annotateur->c_annotation_resolution.width()+x)->isVisible();
-                if(ifvisible)
-                {RectIndex = i+1;
-                 colorlayout->TotalList.at(i).at(y*annotateur->c_annotation_resolution.width()+x)->setVisible(false);
-                }
-             }
-            out <<QString("x");
-            out<<(qint32)x;
-            out<<QString("y");
-            out<<(qint32)y;
-            out<<QString("RectType");
-            out<<RectIndex;
-        }
-
-    }
-
-    file.close();
-
-    }
-    else
-    {
-        QFile file("temp.dat");
-        file.open(QIODevice::ReadOnly);
-        QDataStream in(&file);
-        QString str_x,str_y,str_rectindex;
-        qint32 rectindex;
-
-        for(qint32 y=0;y<AnnotatorScene::c_annotation_resolution.height();y++)
-        {
-            for(qint32 x=0;x<AnnotatorScene::c_annotation_resolution.width();x++)
-            {
-                in>>str_x>>x>>str_y>>y>>str_rectindex>>rectindex;
-                if(rectindex!=0)
-                    colorlayout->TotalList.at(rectindex-1).at(y*annotateur->c_annotation_resolution.width()+x)->setVisible(true);
-
-            }
-
-        }
-        file.close();
-
-    }
-
-
-
-
-}
 
 void MainWindow::displayAnnotation(QString &annoation)
 {
@@ -478,7 +184,7 @@ void MainWindow::displayAnnotation(QString &annoation)
             {
                 in>>str_x>>x>>str_y>>y>>str_rectindex>>rectindex;
                 if(rectindex!=0)
-                    colorlayout->TotalList.at(rectindex-1).at(y*annotateur->c_annotation_resolution.width()+x)->setVisible(true);
+                    chipannotator->colorlayout->TotalList.at(rectindex-1).at(y*chipannotator->annotateur->c_annotation_resolution.width()+x)->setVisible(true);
 
             }
 
@@ -490,52 +196,12 @@ void MainWindow::displayAnnotation(QString &annoation)
 
 }
 
-void MainWindow::displayGrid()
+void MainWindow::closeEvent(QCloseEvent* event)
 {
-    for (int x = 0; x < AnnotatorScene::c_annotation_resolution.width();x++)
-        horizonLine_List.at(x)->setVisible(true);
-    for (int y = 0; y < AnnotatorScene::c_annotation_resolution.height();y++)
-        verticalLine_List.at(y)->setVisible(true);
-
+    const auto res = askToSaveAndProceed("close");
+    if(res)
+        event->accept();
+    else
+        event->ignore();
 }
-
-void MainWindow::Reset()
-{
-
-    for(int y=0;y<AnnotatorScene::c_annotation_resolution.height();y++)
-    {
-        for(int x=0;x<AnnotatorScene::c_annotation_resolution.width();x++)
-        {
-
-            for (int i = 0; i<TOTAL_TYPE; i++)
-            {
-
-                 colorlayout->TotalList.at(i).at(y*annotateur->c_annotation_resolution.width()+x)->setVisible(false);
-
-             }
-
-        }
-
-    }
-
-}
-
-
-
-/*
-void MainWindow::onSaveClicked()
-{
-    if(m_current_image_file_path.isEmpty()) return;
-    auto output_file_path = m_current_image_file_path;
-    output_file_path.chop(4);
-    output_file_path += "_mask.tif";
-
-
-    annotateur->result().save(output_file_path);
-
-    setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
-    m_modified = false;
-}
-*/
-
 

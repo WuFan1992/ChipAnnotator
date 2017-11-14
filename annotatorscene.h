@@ -31,8 +31,7 @@ public:
 
     static const QSize c_image_resolution;
     static const QSize c_annotation_resolution;
-    void displayImage(const ImageStack_t& images
-                 );
+    void displayImage(const ImageStack_t& images);
 
 public:
     void resetContrastBrightness();

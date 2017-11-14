@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     contrasteditor.cpp \
     annotatorscene.cpp \
     annotatorview.cpp \
-    colorlayout.cpp
+    colorlayout.cpp \
+    chipannotator.cpp \
+    menuaction.cpp
 
 HEADERS  += mainwindow.hpp \
     imagetagger.hpp \
@@ -31,7 +33,9 @@ HEADERS  += mainwindow.hpp \
     contrasteditor.hpp \
     annotatorscene.h \
     annotatorview.h \
-    colorlayout.h
+    colorlayout.h \
+    chipannotator.h \
+    menuaction.h
 
 RESOURCES += \
     images.qrc

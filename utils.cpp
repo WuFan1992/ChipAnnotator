@@ -15,14 +15,6 @@ void Utils::drawRectForClass(QPainter& painter, const Classes& c, const QRect& r
     painter.save();
     painter.setPen(Qt::NoPen);
     auto color = c.color();
-    // color.setAlpha(100);
-    // painter.setBrush(QBrush(color, Qt::SolidPattern));
-    // painter.drawRect(rect);
-    // color.setAlpha(200);
-    // painter.setBrush(QBrush(color, Qt::DiagCrossPattern));
-    // painter.drawRect(rect);
-
-    color.setAlpha(150);
     painter.setBrush(color);
     painter.drawRect(rect);
 
@@ -148,4 +140,34 @@ colorlayout->TotalList.append(colorlayout->ArtefactGeneral);
 
 }
 
+void Utils::saveAnnotation(ChipAnnotator *chipannotator,QString output_file_path)
+{
+    int RectIndex;
+    QFile file(output_file_path);
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
 
+    for(int y=0;y<AnnotatorScene::c_annotation_resolution.height();y++)
+    {
+        for(int x=0;x<AnnotatorScene::c_annotation_resolution.width();x++)
+        {
+            RectIndex =0;
+            for (int i = 0; i<TOTAL_TYPE; i++)
+            {
+                bool ifvisible=chipannotator->colorlayout->TotalList.at(i).at(y*chipannotator->annotateur->c_annotation_resolution.width()+x)->isVisible();
+                if(ifvisible)
+                {RectIndex = i+1;
+                }
+             }
+            out <<QString("x");
+            out<<(qint32)x;
+            out<<QString("y");
+            out<<(qint32)y;
+            out<<QString("RectType");
+            out<<RectIndex;
+        }
+
+    }
+
+      file.close();
+}

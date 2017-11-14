@@ -2,7 +2,7 @@
 
 #include "classes.hpp"
 #include "contrastadjustmentbuttons.hpp"
-#include "utils.hpp"
+
 
 #include <QButtonGroup>
 #include <QGroupBox>
