@@ -20,13 +20,13 @@ public:
     QHBoxLayout *layout;
 
 public:
-    AnnotatorScene *annotateur;
-    AnnotatorView *annotaview;
+    AnnotatorScene *m_annotateur;
+    AnnotatorView *m_annotaview;
 
-    ColorLayout *colorlayout;
+    ColorLayout *m_colorlayout;
 
-    QList<QGraphicsLineItem *> horizonLine_List;
-    QList<QGraphicsLineItem *> verticalLine_List;
+    QList<QGraphicsLineItem *> m_horizonline_list;
+    QList<QGraphicsLineItem *> m_verticalline_list;
 
 
 
@@ -35,6 +35,7 @@ public:
 signals:
     void newCurrentClass(QString name);
     void modified();
+    void statusType(QString type_name);
 
 
 public:
@@ -62,7 +63,7 @@ public slots:
 
     void showAnnotation(bool m_display_annotation);
 
-
+    void displayAnnotation(QString &annoation);
 
     void displayGrid();
 
@@ -76,19 +77,9 @@ public slots:
 
     void PaintGrid(bool m_display_grid);
 
+    void saveAnnotation(QString& output_file_path);
 
-    /**
-     * @brief createAllFileNames
-     * @pre isFileNameValid(filename)
-     * @param filename
-     * @return
-     */
-
-
-    /**
-    * @brief ask to save if modified and return true if the program should continue, and false if it should cancel.
-    */
-
+    void showRectType(boost::optional<AnnotatorScene::Region> m_current_region);
 
 
 };

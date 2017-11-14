@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QPixmap>
+#include <QDebug>
 
 
 namespace
@@ -18,6 +19,11 @@ namespace
     }
 }
 
+MenuAction::MenuAction(QWidget* parent)
+{
+    m_current_image_file_path ="";
+    m_modified = false;
+}
 
 
 
@@ -54,7 +60,8 @@ void MenuAction::onOpenClicked()
 
     auto file = QFileDialog::getOpenFileName(this, tr("Select an image to open"), {}, "*.tif");
     if(!isFileNameValid(file)) return;
-    chipannotator->Reset();
+
+    emit resetScene();
     const auto files = createAllFileNames(file);
     for(const auto& f : files)
         if(!QFileInfo(f).exists()) return;
@@ -66,12 +73,11 @@ void MenuAction::onOpenClicked()
         m_current_image_file_path = files.front();
 
         emit displayImageSignal(loadImageStack(files));
+        emit displayAnnotationSignal((QFileInfo::exists(annotation) ? annotation : ""));
+        emit displayGridSignal();
 
-        //chipannotator->annotateur->displayImage(loadImageStack(files));
-        displayAnnotation((QFileInfo::exists(annotation) ? annotation : ""));
-        chipannotator->displayGrid();
+        emit setWindowTitleSignal(QFileInfo(m_current_image_file_path).fileName());
 
-       setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
        m_modified = false;
     }
     catch(const std::runtime_error& ex)
@@ -89,8 +95,27 @@ void MenuAction::onSaveClicked()
     auto output_file_path = m_current_image_file_path;
     output_file_path.chop(4);
     output_file_path += ".dat";
-    Utils::saveAnnotation(chipannotator,output_file_path);
-    setWindowTitle(QFileInfo(m_current_image_file_path).fileName());
+
+    emit saveAnnotationSignal(output_file_path);
+
+     emit setWindowTitleSignal(QFileInfo(m_current_image_file_path).fileName());
     m_modified = false;
 
 }
+
+void MenuAction::onAnnotationModified()
+{
+    m_modified = true;
+    emit setWindowTitleSignal(QFileInfo(m_current_image_file_path).fileName());
+
+}
+
+void MenuAction::closeEvent(QCloseEvent* event)
+{
+    const auto res = askToSaveAndProceed("close");
+    if(res)
+        event->accept();
+    else
+        event->ignore();
+}
+
